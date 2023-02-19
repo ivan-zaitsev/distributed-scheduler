@@ -11,6 +11,9 @@
 
     <modules>
         <module>distributed-scheduler-core</module>
+        <module>distributed-scheduler-discovery-provider-zookeeper</module>
+        <module>distributed-scheduler-leader-provider-zookeeper</module>
+        <module>distributed-scheduler-database-provider-postgresql</module>
     </modules>
 
     <properties>
