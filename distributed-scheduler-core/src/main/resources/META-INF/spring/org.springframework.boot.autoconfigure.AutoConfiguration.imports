@@ -1,1 +1,2 @@
 ua.ivan909020.scheduler.core.configuration.PartitioningAutoConfiguration
+ua.ivan909020.scheduler.core.configuration.LeadershipAutoConfiguration
