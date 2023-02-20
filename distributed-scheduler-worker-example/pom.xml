@@ -32,6 +32,11 @@
             <artifactId>distributed-scheduler-discovery-provider-zookeeper</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>ua.ivan909020</groupId>
+            <artifactId>distributed-scheduler-leader-provider-zookeeper</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,18 +1,15 @@
 package ua.ivan909020.scheduler.discovery.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.commons.util.InetUtils;
-import org.springframework.cloud.commons.util.InetUtilsProperties;
 import org.springframework.cloud.zookeeper.ZookeeperProperties;
 import org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryProperties;
 
 @ConfigurationProperties("scheduler.zookeeper")
 public class DiscoveryZookeeperProperties {
 
-    private ZookeeperProperties connectionProperties = new ZookeeperProperties();
+    private ZookeeperProperties connectionProperties;
 
-    private ZookeeperDiscoveryProperties discoveryProperties = new ZookeeperDiscoveryProperties(
-            new InetUtils(new InetUtilsProperties()));
+    private ZookeeperDiscoveryProperties discoveryProperties;
 
     public ZookeeperProperties getConnectionProperties() {
         return connectionProperties;

@@ -17,7 +17,11 @@ public class ZookeeperAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public LeaderZookeeperProperties leaderZookeeperProperties() {
-        return new LeaderZookeeperProperties();
+        ZookeeperProperties zookeeperConnectionProperties = new ZookeeperProperties();
+
+        LeaderZookeeperProperties zookeeperProperties = new LeaderZookeeperProperties();
+        zookeeperProperties.setConnectionProperties(zookeeperConnectionProperties);
+        return zookeeperProperties;
     }
 
     @Bean

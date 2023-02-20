@@ -1,7 +1,5 @@
 package ua.ivan909020.scheduler.leader.configuration;
 
-import java.util.UUID;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +8,7 @@ import org.springframework.integration.leader.Candidate;
 import org.springframework.integration.leader.DefaultCandidate;
 import org.springframework.integration.zookeeper.leader.LeaderInitiator;
 
+import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 import ua.ivan909020.scheduler.leader.service.LeaderEventPublisherZookeeper;
 import ua.ivan909020.scheduler.leader.service.LeaderRegistryZookeeper;
@@ -19,8 +18,8 @@ public class LeaderAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public DefaultCandidate candidate() {
-        return new DefaultCandidate(UUID.randomUUID().toString(), "worker-node");
+    public DefaultCandidate candidate(SchedulerProperties schedulerProperties) {
+        return new DefaultCandidate(schedulerProperties.getInstanceId(), "worker-node");
     }
 
     @Bean

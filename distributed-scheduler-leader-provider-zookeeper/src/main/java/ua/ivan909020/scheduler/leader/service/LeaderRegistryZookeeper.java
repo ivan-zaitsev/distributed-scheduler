@@ -22,6 +22,11 @@ public class LeaderRegistryZookeeper implements LeaderRegistry {
     }
 
     @Override
+    public String getLeaderInstanceId() {
+        return null;//leaderInitiator.getContext().getParticipant().getId();
+    }
+
+    @Override
     public boolean isLeader() {
         return leaderInitiator.getContext().isLeader();
     }

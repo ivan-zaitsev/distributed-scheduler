@@ -6,7 +6,7 @@ import org.springframework.cloud.zookeeper.ZookeeperProperties;
 @ConfigurationProperties("scheduler.zookeeper")
 public class LeaderZookeeperProperties {
 
-    private ZookeeperProperties connectionProperties = new ZookeeperProperties();
+    private ZookeeperProperties connectionProperties;
 
     public ZookeeperProperties getConnectionProperties() {
         return connectionProperties;

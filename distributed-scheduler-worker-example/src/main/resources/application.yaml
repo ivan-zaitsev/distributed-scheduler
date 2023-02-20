@@ -8,6 +8,7 @@ spring:
 
 # scheduler configuration
 scheduler:
+  instance-id: ${spring.application.name}-${random.value}
   mode: PARTITIONING
 
   partitioning:
@@ -16,6 +17,3 @@ scheduler:
   zookeeper:
     connection-properties:
       connect-string: 127.0.0.1:2181
-
-    discovery-properties:
-      instance-id: ${spring.application.name}-${random.value}
