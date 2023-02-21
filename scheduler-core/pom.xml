@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>ua.ivan909020</groupId>
+        <groupId>ua.ivan909020.scheduler</groupId>
         <artifactId>distributed-scheduler-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>

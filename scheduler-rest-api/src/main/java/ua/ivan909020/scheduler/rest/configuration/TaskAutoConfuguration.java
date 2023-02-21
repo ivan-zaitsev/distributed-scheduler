@@ -20,7 +20,7 @@ public class TaskAutoConfuguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public TaskRestController instanceRestController(TaskService taskService) {
+    public TaskRestController taskRestController(TaskService taskService) {
         return new TaskRestController(taskService);
     }
 
