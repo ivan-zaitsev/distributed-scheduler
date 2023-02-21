@@ -13,7 +13,7 @@
     </parent>
 
     <groupId>ua.ivan909020</groupId>
-    <artifactId>distributed-scheduler-worker-example</artifactId>
+    <artifactId>distributed-scheduler-partitioning-worker</artifactId>
     <version>1.0.0</version>
 
     <properties>

@@ -10,10 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>distributed-scheduler-core</module>
-        <module>distributed-scheduler-discovery-provider-zookeeper</module>
-        <module>distributed-scheduler-leader-provider-zookeeper</module>
-        <module>distributed-scheduler-database-provider-postgresql</module>
+        <module>scheduler-core</module>
+        <module>scheduler-providers-discovery/zookeeper</module>
+        <module>scheduler-providers-leader/zookeeper</module>
+        <module>scheduler-providers-database/postgresql</module>
     </modules>
 
     <properties>
