@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
-import ua.ivan909020.scheduler.rest.model.dto.InstanceDto;
+import ua.ivan909020.scheduler.rest.model.dto.instance.InstanceDto;
 
 @Service
 public class InstanceServiceDefault implements InstanceService {
 
-    private InstanceRegistry instanceRegistry;
+    private final InstanceRegistry instanceRegistry;
 
-    private Optional<LeaderRegistry> leaderRegistry;
+    private final Optional<LeaderRegistry> leaderRegistry;
 
     public InstanceServiceDefault(
             InstanceRegistry instanceRegistry, 

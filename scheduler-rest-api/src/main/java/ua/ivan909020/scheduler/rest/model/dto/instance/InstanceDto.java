@@ -1,4 +1,4 @@
-package ua.ivan909020.scheduler.rest.model.dto;
+package ua.ivan909020.scheduler.rest.model.dto.instance;
 
 import java.net.URI;
 import java.time.Instant;

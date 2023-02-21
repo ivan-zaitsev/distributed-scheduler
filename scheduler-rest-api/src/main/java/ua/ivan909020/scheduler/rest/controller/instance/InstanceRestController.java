@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.ivan909020.scheduler.rest.model.dto.InstanceDto;
+import ua.ivan909020.scheduler.rest.model.dto.instance.InstanceDto;
 import ua.ivan909020.scheduler.rest.service.instance.InstanceService;
 
 @RestController
