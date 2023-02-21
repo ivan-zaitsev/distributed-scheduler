@@ -1,6 +1,6 @@
 package ua.ivan909020.scheduler.core.service.worker;
 
-import ua.ivan909020.scheduler.core.model.domain.SchedulerMode;
+import ua.ivan909020.scheduler.core.model.domain.scheduler.SchedulerMode;
 
 public interface WorkerService {
 

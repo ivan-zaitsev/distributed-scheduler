@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.leader.event.OnGrantedEvent;
 import org.springframework.integration.leader.event.OnRevokedEvent;
 
-import ua.ivan909020.scheduler.core.model.domain.SchedulerMode;
+import ua.ivan909020.scheduler.core.model.domain.scheduler.SchedulerMode;
 import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 import ua.ivan909020.scheduler.core.service.worker.WorkerService;
 

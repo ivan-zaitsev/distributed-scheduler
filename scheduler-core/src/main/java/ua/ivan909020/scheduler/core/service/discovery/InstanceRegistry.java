@@ -2,12 +2,12 @@ package ua.ivan909020.scheduler.core.service.discovery;
 
 import java.util.List;
 
-import org.springframework.cloud.client.ServiceInstance;
+import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 
 public interface InstanceRegistry {
 
-    public ServiceInstance getCurrentInstance();
+    public Instance getCurrentInstance();
 
-    public List<ServiceInstance> getAllInstances();
+    public List<Instance> getAllInstances();
 
 }

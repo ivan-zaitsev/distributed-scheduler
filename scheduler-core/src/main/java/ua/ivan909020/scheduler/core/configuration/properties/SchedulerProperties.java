@@ -2,7 +2,7 @@ package ua.ivan909020.scheduler.core.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import ua.ivan909020.scheduler.core.model.domain.SchedulerMode;
+import ua.ivan909020.scheduler.core.model.domain.scheduler.SchedulerMode;
 
 @ConfigurationProperties("scheduler")
 public class SchedulerProperties {

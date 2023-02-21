@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ua.ivan909020.scheduler.core.model.domain.SchedulerMode;
+import ua.ivan909020.scheduler.core.model.domain.scheduler.SchedulerMode;
 import ua.ivan909020.scheduler.core.service.worker.WorkerService;
 import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.PartitionPolicy;
 

@@ -3,8 +3,6 @@ package ua.ivan909020.scheduler.core.service.worker.partitioning.policy;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import org.springframework.cloud.client.ServiceInstance;
-
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerPartitioningProperties;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 
@@ -25,12 +23,13 @@ public class DiscoveryPartitionPolicy implements PartitionPolicy {
     @Override
     public List<Integer> computePartitions() {
         List<String> instanceIds = instanceRegistry.getAllInstances().stream()
-                .map(ServiceInstance::getInstanceId)
+                .map(instance -> instance.getServiceInstance().getInstanceId())
                 .sorted()
                 .toList();
 
         int instancesCount = instanceIds.size();
-        int currentInstanceIndex = instanceIds.indexOf(instanceRegistry.getCurrentInstance().getInstanceId());
+        int currentInstanceIndex =
+                instanceIds.indexOf(instanceRegistry.getCurrentInstance().getServiceInstance().getInstanceId());
 
         if (areInstancesEmpty(instancesCount, currentInstanceIndex)) {
             return List.of();

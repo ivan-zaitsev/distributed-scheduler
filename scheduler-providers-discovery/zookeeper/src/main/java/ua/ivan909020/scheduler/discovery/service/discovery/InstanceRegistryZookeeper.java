@@ -1,12 +1,16 @@
 package ua.ivan909020.scheduler.discovery.service.discovery;
 
+import static org.springframework.cloud.zookeeper.support.StatusConstants.INSTANCE_STATUS_KEY;
+
+import java.time.Instant;
 import java.util.List;
 
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryClient;
 import org.springframework.cloud.zookeeper.discovery.ZookeeperServiceInstance;
 import org.springframework.cloud.zookeeper.serviceregistry.ServiceInstanceRegistration;
 
+import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
+import ua.ivan909020.scheduler.core.model.domain.instance.InstanceStatus;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 
 public class InstanceRegistryZookeeper implements InstanceRegistry {
@@ -28,9 +32,9 @@ public class InstanceRegistryZookeeper implements InstanceRegistry {
     }
 
     @Override
-    public ServiceInstance getCurrentInstance() {
+    public Instance getCurrentInstance() {
         setPortIfNeeded();
-        return new ZookeeperServiceInstance(instanceName, instanceRegistration.getServiceInstance());
+        return buildInstance(new ZookeeperServiceInstance(instanceName, instanceRegistration.getServiceInstance()));
     }
 
     private void setPortIfNeeded() {
@@ -40,8 +44,19 @@ public class InstanceRegistryZookeeper implements InstanceRegistry {
     }
 
     @Override
-    public List<ServiceInstance> getAllInstances() {
-        return discoveryClient.getInstances(instanceName);
+    public List<Instance> getAllInstances() {
+        return discoveryClient.getInstances(instanceName).stream()
+                .map(ZookeeperServiceInstance.class::cast)
+                .map(this::buildInstance)
+                .toList();
+    }
+
+    private Instance buildInstance(ZookeeperServiceInstance serviceInstance) {
+        Instance instance = new Instance();
+        instance.setServiceInstance(serviceInstance);
+        instance.setStatus(InstanceStatus.valueOf(serviceInstance.getMetadata().get(INSTANCE_STATUS_KEY)));
+        instance.setRegisteredAt(Instant.ofEpochMilli(serviceInstance.getServiceInstance().getRegistrationTimeUTC()));
+        return instance;
     }
 
 }

@@ -11,6 +11,7 @@
 
     <modules>
         <module>scheduler-core</module>
+        <module>scheduler-rest-api</module>
         <module>scheduler-providers-discovery/zookeeper</module>
         <module>scheduler-providers-leader/zookeeper</module>
         <module>scheduler-providers-database/postgresql</module>
