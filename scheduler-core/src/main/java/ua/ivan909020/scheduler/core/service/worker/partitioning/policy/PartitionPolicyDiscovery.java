@@ -6,13 +6,13 @@ import java.util.stream.IntStream;
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerPartitioningProperties;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 
-public class DiscoveryPartitionPolicy implements PartitionPolicy {
+public class PartitionPolicyDiscovery implements PartitionPolicy {
 
     private final SchedulerPartitioningProperties partitioningProperties;
 
     private final InstanceRegistry instanceRegistry;
 
-    public DiscoveryPartitionPolicy(
+    public PartitionPolicyDiscovery(
             SchedulerPartitioningProperties partitioningProperties,
             InstanceRegistry instanceRegistry) {
 

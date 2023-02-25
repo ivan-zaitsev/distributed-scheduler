@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerPartitioningProperties;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 import ua.ivan909020.scheduler.core.service.worker.partitioning.PartitionWorkerService;
-import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.DiscoveryPartitionPolicy;
+import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.PartitionPolicyDiscovery;
 import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.PartitionPolicy;
-import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.StaticPartitionPolicy;
+import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.PartitionPolicyStatic;
 
 @Configuration
 @EnableConfigurationProperties
@@ -28,17 +28,17 @@ public class PartitioningAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnProperty("scheduler.partitioning.static-partitions")
-    public PartitionPolicy staticPartitionPolicy(SchedulerPartitioningProperties partitioningProperties) {
-        return new StaticPartitionPolicy(partitioningProperties.getStaticPartitions());
+    public PartitionPolicy partitionPolicyStatic(SchedulerPartitioningProperties partitioningProperties) {
+        return new PartitionPolicyStatic(partitioningProperties.getStaticPartitions());
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public PartitionPolicy discoveryPartitionPolicy(
+    public PartitionPolicy partitionPolicyDiscovery(
             SchedulerPartitioningProperties partitioningProperties,
             InstanceRegistry instanceRegistry) {
 
-        return new DiscoveryPartitionPolicy(partitioningProperties, instanceRegistry);
+        return new PartitionPolicyDiscovery(partitioningProperties, instanceRegistry);
     }
 
     @Bean

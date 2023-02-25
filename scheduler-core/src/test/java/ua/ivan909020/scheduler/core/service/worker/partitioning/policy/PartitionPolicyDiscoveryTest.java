@@ -23,7 +23,7 @@ import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 import ua.ivan909020.scheduler.core.testdata.ServiceInstanceMock;
 
 @ExtendWith(MockitoExtension.class)
-class DiscoveryPartitionPolicyTest {
+class PartitionPolicyDiscoveryTest {
 
     @Mock
     private SchedulerPartitioningProperties partitioningProperties;
@@ -32,7 +32,7 @@ class DiscoveryPartitionPolicyTest {
     private InstanceRegistry instanceRegistry;
 
     @InjectMocks
-    private DiscoveryPartitionPolicy discoveryPartitionPolicy;
+    private PartitionPolicyDiscovery partitionPolicyDiscovery;
 
     @ParameterizedTest
     @MethodSource("computePartitions_shouldReturnPatritions_arguments")
@@ -49,7 +49,7 @@ class DiscoveryPartitionPolicyTest {
             doReturn(maxPartitions).when(partitioningProperties).getMaxPartitions();
         }
 
-        List<Integer> actualPartitions = discoveryPartitionPolicy.computePartitions();
+        List<Integer> actualPartitions = partitionPolicyDiscovery.computePartitions();
 
         assertEquals(expectedPartitions, actualPartitions);
     }

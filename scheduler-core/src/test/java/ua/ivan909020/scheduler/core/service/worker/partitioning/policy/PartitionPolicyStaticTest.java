@@ -12,7 +12,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class StaticPartitionPolicyTest {
+class PartitionPolicyStaticTest {
 
     @Spy
     private List<Integer> staticPartitions = new ArrayList<>();
@@ -23,11 +23,11 @@ class StaticPartitionPolicyTest {
     }
 
     @InjectMocks
-    private StaticPartitionPolicy staticPartitionPolicy;
+    private PartitionPolicyStatic partitionPolicyStatic;
 
     @Test
     void computePartitions_shouldReturnPatritions() {
-        List<Integer> actualPartitions = staticPartitionPolicy.computePartitions();
+        List<Integer> actualPartitions = partitionPolicyStatic.computePartitions();
 
         assertEquals(staticPartitions, actualPartitions);
     }

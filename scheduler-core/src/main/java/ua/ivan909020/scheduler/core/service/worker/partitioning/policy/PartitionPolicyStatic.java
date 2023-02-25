@@ -2,11 +2,11 @@ package ua.ivan909020.scheduler.core.service.worker.partitioning.policy;
 
 import java.util.List;
 
-public class StaticPartitionPolicy implements PartitionPolicy {
+public class PartitionPolicyStatic implements PartitionPolicy {
 
     private final List<Integer> staticPartitions;
 
-    public StaticPartitionPolicy(List<Integer> staticPartitions) {
+    public PartitionPolicyStatic(List<Integer> staticPartitions) {
         this.staticPartitions = staticPartitions;
     }
 
