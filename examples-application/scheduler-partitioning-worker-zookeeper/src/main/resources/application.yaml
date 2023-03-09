@@ -2,9 +2,18 @@
 server:
   port: 0
 
+# spring configuration
 spring:
   application:
     name: worker-node
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/distributed_scheduler
+    username: postgres
+    password: postgres
+
+  liquibase:
+    change-log: classpath:migration/changelog.xml
 
 # scheduler configuration
 scheduler:

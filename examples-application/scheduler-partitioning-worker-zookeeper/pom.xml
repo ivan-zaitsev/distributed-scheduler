@@ -36,6 +36,11 @@
         </dependency>
         <dependency>
             <groupId>ua.ivan909020.scheduler</groupId>
+            <artifactId>distributed-scheduler-database-provider-postgresql</artifactId>
+            <version>${distributed.scheduler.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ua.ivan909020.scheduler</groupId>
             <artifactId>distributed-scheduler-discovery-provider-zookeeper</artifactId>
             <version>${distributed.scheduler.version}</version>
         </dependency>
