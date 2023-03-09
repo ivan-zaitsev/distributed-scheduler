@@ -35,7 +35,7 @@ public class PartitionPolicyDiscovery implements PartitionPolicy {
             return List.of();
         }
 
-        int currentPartitionsCount = calculateCurrentInstacnePartitionsCount(instancesCount);
+        int currentPartitionsCount = calculateCurrentInstancePartitionsCount(instancesCount);
 
         if (areThereMoreInstancesThanPartitions(currentInstanceIndex)) {
             return List.of();
@@ -51,7 +51,7 @@ public class PartitionPolicyDiscovery implements PartitionPolicy {
         return instancesCount == 0 || currentInstanceIndex == -1;
     }
 
-    private int calculateCurrentInstacnePartitionsCount(int instancesCount) {
+    private int calculateCurrentInstancePartitionsCount(int instancesCount) {
         if (partitioningProperties.getMaxPartitions() > instancesCount) {
             return partitioningProperties.getMaxPartitions() / instancesCount;
         } else {
