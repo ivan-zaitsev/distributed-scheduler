@@ -8,5 +8,5 @@ export interface Instance {
 
 enum InstanceStatus {
   UP,
-  OUT_OF_SERVICE
+  DOWN
 }

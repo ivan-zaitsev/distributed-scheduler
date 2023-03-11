@@ -23,11 +23,8 @@ public class SchedulerAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public SchedulerService schedulerService(
-            SchedulerProperties schedulerProperties,
-            Set<WorkerService> workerServices) {
-
-        return new SchedulerService(schedulerProperties, workerServices);
+    public SchedulerService schedulerService(Set<WorkerService> workerServices) {
+        return new SchedulerService(workerServices);
     }
 
 }

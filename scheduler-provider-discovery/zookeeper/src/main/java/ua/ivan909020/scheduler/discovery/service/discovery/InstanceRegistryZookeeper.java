@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryClient;
 import org.springframework.cloud.zookeeper.discovery.ZookeeperServiceInstance;
 import org.springframework.cloud.zookeeper.serviceregistry.ServiceInstanceRegistration;
+import org.springframework.cloud.zookeeper.support.StatusConstants;
 
 import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceStatus;
@@ -54,9 +55,18 @@ public class InstanceRegistryZookeeper implements InstanceRegistry {
     private Instance buildInstance(ZookeeperServiceInstance serviceInstance) {
         Instance instance = new Instance();
         instance.setServiceInstance(serviceInstance);
-        instance.setStatus(InstanceStatus.valueOf(serviceInstance.getMetadata().get(INSTANCE_STATUS_KEY)));
+        instance.setStatus(buildInstanceStatus(serviceInstance));
         instance.setRegisteredAt(Instant.ofEpochMilli(serviceInstance.getServiceInstance().getRegistrationTimeUTC()));
         return instance;
+    }
+
+    private InstanceStatus buildInstanceStatus(ZookeeperServiceInstance serviceInstance) {
+        String status = serviceInstance.getMetadata().get(INSTANCE_STATUS_KEY);
+        return switch (status) {
+            case StatusConstants.STATUS_UP -> InstanceStatus.UP;
+            case StatusConstants.STATUS_OUT_OF_SERVICE -> InstanceStatus.DOWN;
+            default -> throw new IllegalStateException("Failed to determine instance status for = " + status);
+        };
     }
 
 }

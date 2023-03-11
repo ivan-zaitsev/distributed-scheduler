@@ -12,6 +12,13 @@ spring:
       connect-string: 127.0.0.1:2181
 
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: '*'
+            allowed-methods: '*'
+            allowed-headers: '*'
+
       routes:
         - id: worker-node
           uri: lb://worker-node
