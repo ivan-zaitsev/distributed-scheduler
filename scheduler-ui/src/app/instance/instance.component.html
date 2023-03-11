@@ -1,0 +1,20 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">URI</th>
+      <th scope="col">Status</th>
+      <th scope="col">Registered At</th>
+      <th scope="col">Leader</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let instance of instances">
+      <td>{{instance.id}}</td>
+      <td>{{instance.uri}}</td>
+      <td>{{instance.status}}</td>
+      <td>{{instance.registeredAt | date: 'yyyy-MM-dd HH:mm:ss'}} UTC</td>
+      <td>{{instance.leader ? "Yes" : "No"}}</td>
+    </tr>
+  </tbody>
+</table>
