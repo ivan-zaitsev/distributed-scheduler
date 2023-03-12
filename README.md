@@ -2,24 +2,32 @@
 
 ## Components
 
-Core:
+Core (required):
 ```
 scheduler-core: Java 17, Maven, Spring 3
 ```
 
-Providers:
+Providers database (required):
 ```
 scheduler-discovery-provider-database-postresql: PostgreSQL
+```
+
+Providers discovery (required):
+```
 scheduler-discovery-provider-discovery-zookeeper: Spring Cloud Zookeeper
+```
+
+Providers leader (optional):
+```
 scheduler-discovery-provider-leader-zookeeper: Spring Cloud Zookeeper
 ```
 
-UI:
+UI (optional):
 ```
 scheduler-ui: Angular 15
 ```
 
-Examples:
+Examples (optional):
 ```
 infrastructure: Terraform, Kubernetes
 scheduler-rest-api-gateway: Spring Cloud Gateway
