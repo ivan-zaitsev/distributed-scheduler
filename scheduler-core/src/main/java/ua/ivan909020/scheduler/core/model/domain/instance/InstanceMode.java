@@ -1,6 +1,6 @@
-package ua.ivan909020.scheduler.core.model.domain.scheduler;
+package ua.ivan909020.scheduler.core.model.domain.instance;
 
-public enum SchedulerMode {
+public enum InstanceMode {
 
     PARTITIONING, LEADERSHIP;
 

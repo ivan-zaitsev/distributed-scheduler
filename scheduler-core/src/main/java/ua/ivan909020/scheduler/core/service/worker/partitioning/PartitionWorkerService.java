@@ -1,15 +1,17 @@
 package ua.ivan909020.scheduler.core.service.worker.partitioning;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ua.ivan909020.scheduler.core.model.domain.scheduler.SchedulerMode;
+import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
+import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
+import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 import ua.ivan909020.scheduler.core.service.worker.WorkerService;
 import ua.ivan909020.scheduler.core.service.worker.partitioning.policy.PartitionPolicy;
 
@@ -23,17 +25,21 @@ public class PartitionWorkerService implements WorkerService {
 
     private final ScheduledExecutorService executorService;
 
-    private final List<Integer> currentPartitions;
+    private final InstanceRegistry instanceRegistry;
 
-    public PartitionWorkerService(PartitionPolicy partitionPolicy, ScheduledExecutorService executorService) {
+    public PartitionWorkerService(
+            PartitionPolicy partitionPolicy,
+            ScheduledExecutorService executorService,
+            InstanceRegistry instanceRegistry) {
+
         this.partitionPolicy = partitionPolicy;
         this.executorService = executorService;
-        this.currentPartitions = new ArrayList<>();
+        this.instanceRegistry = instanceRegistry;
     }
 
     @Override
-    public SchedulerMode getMode() {
-        return SchedulerMode.PARTITIONING;
+    public InstanceMode getMode() {
+        return InstanceMode.PARTITIONING;
     }
 
     @Override
@@ -56,11 +62,7 @@ public class PartitionWorkerService implements WorkerService {
 
         List<Integer> newPartitions = partitionPolicy.computePartitions();
 
-        if (!currentPartitions.equals(newPartitions)) {
-            System.out.println("newPartitions=" + newPartitions);
-        } else {
-            System.out.println("currentPartitions=" + currentPartitions);
-        }
+        instanceRegistry.updateCurrentInstanceMetadata(Map.of(Instance.CURRENT_PARTITIONS, newPartitions.toString()));
     }
 
 }

@@ -2,14 +2,14 @@ package ua.ivan909020.scheduler.core.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import ua.ivan909020.scheduler.core.model.domain.scheduler.SchedulerMode;
+import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
 
 @ConfigurationProperties("scheduler")
 public class SchedulerProperties {
 
     private String instanceId;
 
-    private SchedulerMode mode;
+    private InstanceMode mode;
 
     public String getInstanceId() {
         return instanceId;
@@ -19,11 +19,11 @@ public class SchedulerProperties {
         this.instanceId = instanceId;
     }
 
-    public SchedulerMode getMode() {
+    public InstanceMode getMode() {
         return mode;
     }
 
-    public void setMode(SchedulerMode mode) {
+    public void setMode(InstanceMode mode) {
         this.mode = mode;
     }
 

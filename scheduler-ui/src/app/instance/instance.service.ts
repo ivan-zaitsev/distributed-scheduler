@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Instance } from './instance';
+import { Instance, InstanceMode } from './instance';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { AppModule } from '../app.module';
+import { AppService } from '../app.service';
 
 @Injectable()
 export class InstancesService {
@@ -10,8 +10,8 @@ export class InstancesService {
   constructor(private http: HttpClient) {
   }
 
-  findAll(): Observable<Instance[]> {
-    return this.http.get<Instance[]>(AppModule.basePath + "/api/v1/instances")
+  findAll(mode: InstanceMode): Observable<Instance[]> {
+    return this.http.get<Instance[]>(AppService.getBasePath(mode) + "/api/v1/instances")
       .pipe(retry(1), catchError(error => throwError(() => error)));
   }
 

@@ -1,12 +1,27 @@
 export interface Instance {
   id: string;
   uri: string;
-  status: InstanceStatus;
   registeredAt: string;
-  leader: boolean;
+  status: InstanceStatus;
+  mode: InstanceMode;
+  partitioning: InstancePartitioning;
+  leadership: InstanceLeadership;
 }
 
-enum InstanceStatus {
+export enum InstanceStatus {
   UP,
-  DOWN
+  OUT_OF_SERVICE
+}
+
+export enum InstanceMode {
+  PARTITIONING,
+  LEADERSHIP
+}
+
+interface InstancePartitioning {
+  partitions: string;
+}
+
+interface InstanceLeadership {
+  leader: boolean;
 }

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InstanceComponent } from './instance/instance.component';
 import { InstancesService } from './instance/instance.service';
+import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { InstancesService } from './instance/instance.service';
     HttpClientModule
   ],
   providers: [
+    AppService,
     InstancesService
   ],
   bootstrap: [
@@ -25,7 +27,5 @@ import { InstancesService } from './instance/instance.service';
   ]
 })
 export class AppModule {
-
-  static basePath: string = "http://localhost:8000/worker-node";
 
 }

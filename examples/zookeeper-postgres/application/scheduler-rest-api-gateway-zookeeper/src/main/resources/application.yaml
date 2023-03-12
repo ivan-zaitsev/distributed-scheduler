@@ -20,9 +20,16 @@ spring:
             allowed-headers: '*'
 
       routes:
-        - id: worker-node
-          uri: lb://worker-node
+        - id: worker-node-partitioning
+          uri: lb://worker-node-partitioning
           predicates:
-            - Path=/worker-node/**
+            - Path=/worker-node-partitioning/**
           filters:
-            - RewritePath=/worker-node/(?<segment>.*), /$\{segment}
+            - RewritePath=/worker-node-partitioning/(?<segment>.*), /$\{segment}
+
+        - id: worker-node-leadership
+          uri: lb://worker-node-leadership
+          predicates:
+            - Path=/worker-node-leadership/**
+          filters:
+            - RewritePath=/worker-node-leadership/(?<segment>.*), /$\{segment}

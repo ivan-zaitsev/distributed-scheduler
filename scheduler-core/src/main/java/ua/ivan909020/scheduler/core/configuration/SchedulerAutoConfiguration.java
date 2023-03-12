@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.service.core.SchedulerService;
+import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 import ua.ivan909020.scheduler.core.service.worker.WorkerService;
 
 @Configuration
@@ -23,8 +24,12 @@ public class SchedulerAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public SchedulerService schedulerService(Set<WorkerService> workerServices) {
-        return new SchedulerService(workerServices);
+    public SchedulerService schedulerService(
+            SchedulerProperties schedulerProperties,
+            InstanceRegistry instanceRegistry,
+            Set<WorkerService> workerServices) {
+
+        return new SchedulerService(schedulerProperties, instanceRegistry, workerServices);
     }
 
 }

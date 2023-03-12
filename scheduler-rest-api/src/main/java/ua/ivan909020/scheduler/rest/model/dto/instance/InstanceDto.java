@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceStatus;
+import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
 
 @JsonInclude(Include.NON_NULL)
 public class InstanceDto {
@@ -19,7 +20,11 @@ public class InstanceDto {
 
     private InstanceStatus status;
 
-    private Boolean leader;
+    private InstanceMode mode;
+
+    private InstancePartitioningDto partitioning;
+
+    private InstanceLeadershipDto leadership;
 
     public String getId() {
         return id;
@@ -53,12 +58,28 @@ public class InstanceDto {
         this.status = status;
     }
 
-    public Boolean getLeader() {
-        return leader;
+    public InstanceMode getMode() {
+        return mode;
     }
 
-    public void setLeader(Boolean leader) {
-        this.leader = leader;
+    public void setMode(InstanceMode mode) {
+        this.mode = mode;
+    }
+
+    public InstancePartitioningDto getPartitioning() {
+        return partitioning;
+    }
+
+    public void setPartitioning(InstancePartitioningDto partitioning) {
+        this.partitioning = partitioning;
+    }
+
+    public InstanceLeadershipDto getLeadership() {
+        return leadership;
+    }
+
+    public void setLeadership(InstanceLeadershipDto leadership) {
+        this.leadership = leadership;
     }
 
 }
