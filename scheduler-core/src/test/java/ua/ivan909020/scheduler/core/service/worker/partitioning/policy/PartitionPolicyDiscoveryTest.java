@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.cloud.client.ServiceInstance;
 
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerPartitioningProperties;
+import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 import ua.ivan909020.scheduler.core.testdata.ServiceInstanceMock;
 
@@ -37,8 +38,8 @@ class PartitionPolicyDiscoveryTest {
     @ParameterizedTest
     @MethodSource("computePartitions_shouldReturnPatritions_arguments")
     void computePartitions_shouldReturnPatritions(
-            ServiceInstance currentInstance,
-            List<ServiceInstance> allInstances,
+            Instance currentInstance,
+            List<Instance> allInstances,
             int maxPartitions,
             List<Integer> expectedPartitions) {
 
@@ -70,58 +71,64 @@ class PartitionPolicyDiscoveryTest {
         int maxPartitions = 2;
 
         return Stream.of(
-                Arguments.of(new ServiceInstanceMock("1"), allInstances, maxPartitions, List.of()));
+                Arguments.of(buildInstance("1"), allInstances, maxPartitions, List.of()));
     }
 
     private static Stream<Arguments> argumets_2() {
-        List<ServiceInstance> allInstances = new ArrayList<>();
-        allInstances.add(new ServiceInstanceMock("1"));
-        allInstances.add(new ServiceInstanceMock("2"));
-        allInstances.add(new ServiceInstanceMock("3"));
+        List<Instance> allInstances = new ArrayList<>();
+        allInstances.add(buildInstance("1"));
+        allInstances.add(buildInstance("2"));
+        allInstances.add(buildInstance("3"));
         Collections.shuffle(allInstances);
 
         int maxPartitions = 2;
 
         return Stream.of(
-                Arguments.of(new ServiceInstanceMock("1"), allInstances, maxPartitions, List.of(0, 1)),
-                Arguments.of(new ServiceInstanceMock("2"), allInstances, maxPartitions, List.of()),
-                Arguments.of(new ServiceInstanceMock("3"), allInstances, maxPartitions, List.of()));
+                Arguments.of(buildInstance("1"), allInstances, maxPartitions, List.of(0, 1)),
+                Arguments.of(buildInstance("2"), allInstances, maxPartitions, List.of()),
+                Arguments.of(buildInstance("3"), allInstances, maxPartitions, List.of()));
     }
 
     private static Stream<Arguments> argumets_3() {
-        List<ServiceInstance> allInstances = new ArrayList<>();
-        allInstances.add(new ServiceInstanceMock("1"));
-        allInstances.add(new ServiceInstanceMock("2"));
-        allInstances.add(new ServiceInstanceMock("3"));
-        allInstances.add(new ServiceInstanceMock("4"));
+        List<Instance> allInstances = new ArrayList<>();
+        allInstances.add(buildInstance("1"));
+        allInstances.add(buildInstance("2"));
+        allInstances.add(buildInstance("3"));
+        allInstances.add(buildInstance("4"));
         Collections.shuffle(allInstances);
 
         int maxPartitions = 10;
 
         return Stream.of(
-                Arguments.of(new ServiceInstanceMock("1"), allInstances, maxPartitions, List.of(0, 1)),
-                Arguments.of(new ServiceInstanceMock("2"), allInstances, maxPartitions, List.of(2, 3)),
-                Arguments.of(new ServiceInstanceMock("3"), allInstances, maxPartitions, List.of(4, 5)),
-                Arguments.of(new ServiceInstanceMock("4"), allInstances, maxPartitions, List.of(6, 7, 8, 9)));
+                Arguments.of(buildInstance("1"), allInstances, maxPartitions, List.of(0, 1)),
+                Arguments.of(buildInstance("2"), allInstances, maxPartitions, List.of(2, 3)),
+                Arguments.of(buildInstance("3"), allInstances, maxPartitions, List.of(4, 5)),
+                Arguments.of(buildInstance("4"), allInstances, maxPartitions, List.of(6, 7, 8, 9)));
     }
 
     private static Stream<Arguments> argumets_4() {
-        List<ServiceInstance> allInstances = new ArrayList<>();
-        allInstances.add(new ServiceInstanceMock("1"));
-        allInstances.add(new ServiceInstanceMock("2"));
-        allInstances.add(new ServiceInstanceMock("3"));
-        allInstances.add(new ServiceInstanceMock("4"));
-        allInstances.add(new ServiceInstanceMock("5"));
+        List<Instance> allInstances = new ArrayList<>();
+        allInstances.add(buildInstance("1"));
+        allInstances.add(buildInstance("2"));
+        allInstances.add(buildInstance("3"));
+        allInstances.add(buildInstance("4"));
+        allInstances.add(buildInstance("5"));
         Collections.shuffle(allInstances);
 
         int maxPartitions = 10;
 
         return Stream.of(
-                Arguments.of(new ServiceInstanceMock("1"), allInstances, maxPartitions, List.of(0, 1)),
-                Arguments.of(new ServiceInstanceMock("2"), allInstances, maxPartitions, List.of(2, 3)),
-                Arguments.of(new ServiceInstanceMock("3"), allInstances, maxPartitions, List.of(4, 5)),
-                Arguments.of(new ServiceInstanceMock("4"), allInstances, maxPartitions, List.of(6, 7)),
-                Arguments.of(new ServiceInstanceMock("5"), allInstances, maxPartitions, List.of(8, 9)));
+                Arguments.of(buildInstance("1"), allInstances, maxPartitions, List.of(0, 1)),
+                Arguments.of(buildInstance("2"), allInstances, maxPartitions, List.of(2, 3)),
+                Arguments.of(buildInstance("3"), allInstances, maxPartitions, List.of(4, 5)),
+                Arguments.of(buildInstance("4"), allInstances, maxPartitions, List.of(6, 7)),
+                Arguments.of(buildInstance("5"), allInstances, maxPartitions, List.of(8, 9)));
+    }
+    
+    private static Instance buildInstance(String instanceId) {
+        Instance instance = new Instance();
+        instance.setServiceInstance(new ServiceInstanceMock(instanceId));
+        return instance;
     }
 
 }
