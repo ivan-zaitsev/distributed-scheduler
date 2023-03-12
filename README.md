@@ -30,7 +30,7 @@ scheduler-ui: Angular 15
 Examples (optional):
 ```
 infrastructure: Terraform, Kubernetes
-scheduler-rest-api-gateway: Spring Cloud Gateway
-scheduler-partitioning-worker-zookeper
-scheduler-leadership-worker-zookeper
+scheduler-rest-api-gateway-zookeeper: Spring Cloud Gateway, Zookeeper
+scheduler-partitioning-worker-zookeper: Zookeeper Discovery Provider
+scheduler-leadership-worker-zookeper: Zookeeper Leader Provider
 ```
