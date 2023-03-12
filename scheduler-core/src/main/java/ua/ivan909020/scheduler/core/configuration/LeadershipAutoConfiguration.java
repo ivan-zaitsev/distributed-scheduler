@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
-import ua.ivan909020.scheduler.core.service.discovery.LeaderRegistry;
+import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 import ua.ivan909020.scheduler.core.service.worker.leadership.LeaderWorkerService;
 
 @Configuration

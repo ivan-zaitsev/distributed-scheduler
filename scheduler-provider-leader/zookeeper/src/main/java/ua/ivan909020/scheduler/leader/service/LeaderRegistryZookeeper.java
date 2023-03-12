@@ -5,7 +5,7 @@ import java.util.Set;
 import org.springframework.integration.leader.event.AbstractLeaderEvent;
 import org.springframework.integration.zookeeper.leader.LeaderInitiator;
 
-import ua.ivan909020.scheduler.core.service.discovery.LeaderRegistry;
+import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 
 public class LeaderRegistryZookeeper implements LeaderRegistry {
 

@@ -9,7 +9,7 @@ import org.springframework.integration.leader.DefaultCandidate;
 import org.springframework.integration.zookeeper.leader.LeaderInitiator;
 
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
-import ua.ivan909020.scheduler.core.service.discovery.LeaderRegistry;
+import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 import ua.ivan909020.scheduler.leader.service.LeaderEventPublisherZookeeper;
 import ua.ivan909020.scheduler.leader.service.LeaderRegistryZookeeper;
 

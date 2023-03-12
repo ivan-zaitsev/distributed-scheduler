@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
-import ua.ivan909020.scheduler.core.service.discovery.LeaderRegistry;
+import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 import ua.ivan909020.scheduler.rest.model.dto.instance.InstanceDto;
 import ua.ivan909020.scheduler.rest.model.dto.instance.InstanceLeadershipDto;
 import ua.ivan909020.scheduler.rest.model.dto.instance.InstancePartitioningDto;

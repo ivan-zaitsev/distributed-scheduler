@@ -8,7 +8,7 @@ import org.springframework.integration.leader.event.OnGrantedEvent;
 import org.springframework.integration.leader.event.OnRevokedEvent;
 
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
-import ua.ivan909020.scheduler.core.service.discovery.LeaderRegistry;
+import ua.ivan909020.scheduler.core.service.leader.LeaderRegistry;
 import ua.ivan909020.scheduler.core.service.worker.WorkerService;
 
 public class LeaderWorkerService implements WorkerService {

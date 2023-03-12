@@ -1,4 +1,4 @@
-package ua.ivan909020.scheduler.core.service.discovery;
+package ua.ivan909020.scheduler.core.service.leader;
 
 import java.util.Set;
 
