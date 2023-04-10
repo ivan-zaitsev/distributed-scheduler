@@ -8,10 +8,12 @@ import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
 
 public interface TaskRepository {
 
-    boolean create(Task task);
+    Task find(Integer partition, String id);
 
-    boolean update(Task task);
+    void create(Task task);
 
-    List<Task> findAllOverdue(List<TaskStatus> statuses, Instant timestamp, int limit);
+    void updateStatus(Task task);
+
+    List<Task> findAllOverdue(List<Integer> partitions, List<TaskStatus> statuses, Instant timestamp, int limit);
 
 }

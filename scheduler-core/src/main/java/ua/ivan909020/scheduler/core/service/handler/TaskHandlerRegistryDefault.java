@@ -22,10 +22,10 @@ public class TaskHandlerRegistryDefault implements TaskHandlerRegistry {
                 .toList();
 
         if (taskHandlers.isEmpty()) {
-            throw new IllegalStateException("Found none task handlers for task = " + task.getName());
+            throw new IllegalStateException("Found none task handlers for task: " + task.getId());
         }
         if (taskHandlers.size() > 1) {
-            throw new IllegalStateException("Found too many task handlers for task = " + task.getName());
+            throw new IllegalStateException("Found too many task handlers for task: " + task.getId());
         }
 
         return taskHandlers.get(0);

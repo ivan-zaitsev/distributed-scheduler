@@ -2,12 +2,12 @@ package ua.ivan909020.scheduler.rest.model.dto.instance;
 
 import java.net.URI;
 import java.time.Instant;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceStatus;
-import ua.ivan909020.scheduler.core.model.domain.instance.InstanceMode;
 
 @JsonInclude(Include.NON_NULL)
 public class InstanceDto {
@@ -18,13 +18,11 @@ public class InstanceDto {
 
     private Instant registeredAt;
 
+    private Instant updatedAt;
+
     private InstanceStatus status;
 
-    private InstanceMode mode;
-
-    private InstancePartitioningDto partitioning;
-
-    private InstanceLeadershipDto leadership;
+    private List<Integer> partitions;
 
     public String getId() {
         return id;
@@ -40,6 +38,14 @@ public class InstanceDto {
 
     public void setUri(URI uri) {
         this.uri = uri;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Instant getRegisteredAt() {
@@ -58,28 +64,12 @@ public class InstanceDto {
         this.status = status;
     }
 
-    public InstanceMode getMode() {
-        return mode;
+    public List<Integer> getPartitions() {
+        return partitions;
     }
 
-    public void setMode(InstanceMode mode) {
-        this.mode = mode;
-    }
-
-    public InstancePartitioningDto getPartitioning() {
-        return partitioning;
-    }
-
-    public void setPartitioning(InstancePartitioningDto partitioning) {
-        this.partitioning = partitioning;
-    }
-
-    public InstanceLeadershipDto getLeadership() {
-        return leadership;
-    }
-
-    public void setLeadership(InstanceLeadershipDto leadership) {
-        this.leadership = leadership;
+    public void setPartitions(List<Integer> partitions) {
+        this.partitions = partitions;
     }
 
 }

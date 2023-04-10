@@ -1,37 +1,22 @@
 package ua.ivan909020.scheduler.core.model.entity;
 
 import java.time.Instant;
-import java.util.UUID;
 
 public class Task {
 
-    private UUID id;
-
     private Integer partition;
 
-    private Integer version;
+    private String id;
 
-    private String name;
+    private Long version;
 
     private TaskStatus status;
 
-    private String data;
-
-    private Instant createdAt;
-
     private Instant executeAt;
 
-    private Instant processingStartedAt;
+    private String name;
 
-    private Instant processingRetriesCount;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    private String data;
 
     public Integer getPartition() {
         return partition;
@@ -41,20 +26,20 @@ public class Task {
         this.partition = partition;
     }
 
-    public Integer getVersion() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(Integer version) {
+    public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public TaskStatus getStatus() {
@@ -65,22 +50,6 @@ public class Task {
         this.status = status;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Instant getExecuteAt() {
         return executeAt;
     }
@@ -89,20 +58,31 @@ public class Task {
         this.executeAt = executeAt;
     }
 
-    public Instant getProcessingStartedAt() {
-        return processingStartedAt;
+    public String getName() {
+        return name;
     }
 
-    public void setProcessingStartedAt(Instant processingStartedAt) {
-        this.processingStartedAt = processingStartedAt;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Instant getProcessingRetriesCount() {
-        return processingRetriesCount;
+    public String getData() {
+        return data;
     }
 
-    public void setProcessingRetriesCount(Instant processingRetriesCount) {
-        this.processingRetriesCount = processingRetriesCount;
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Task [partition=" + partition +
+                ", id=" + id +
+                ", version=" + version +
+                ", status=" + status +
+                ", executeAt=" + executeAt +
+                ", name=" + name +
+                ", data=" + data + "]";
     }
 
 }

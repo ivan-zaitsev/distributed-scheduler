@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Instance, InstanceMode } from './instance';
+import { Instance } from './instance';
 import { InstancesService as InstanceService } from './instance.service';
 
 @Component({
@@ -8,20 +8,14 @@ import { InstancesService as InstanceService } from './instance.service';
 })
 export class InstanceComponent implements OnInit {
 
-  instancesPartitioning: Instance[] = [];
-  instancesLeadership: Instance[] = [];
+  instances: Instance[] = [];
 
   constructor(private instanceService: InstanceService) {
   }
 
   ngOnInit(): void {
-    this.instanceService.findAll(InstanceMode.PARTITIONING).subscribe({
-      next: (data: Instance[]) => this.instancesPartitioning = data,
-      error: (error: any) => console.log(error)
-    });
-
-    this.instanceService.findAll(InstanceMode.LEADERSHIP).subscribe({
-      next: (data: Instance[]) => this.instancesLeadership = data,
+    this.instanceService.findAll().subscribe({
+      next: (data: Instance[]) => this.instances = data,
       error: (error: any) => console.log(error)
     });
   }

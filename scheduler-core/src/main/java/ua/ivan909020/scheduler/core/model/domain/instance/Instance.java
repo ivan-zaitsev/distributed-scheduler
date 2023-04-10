@@ -1,21 +1,24 @@
 package ua.ivan909020.scheduler.core.model.domain.instance;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.cloud.client.ServiceInstance;
 
 public class Instance {
 
-    public static final String SCHEDULER_MODE = "scheduler_mode";
-    public static final String CURRENT_PARTITIONS = "current_partitions";
+    public static final String UPDATED_AT = "updated_at";
+    public static final String PARTITIONS = "partitions";
 
     private ServiceInstance serviceInstance;
 
     private Instant registeredAt;
 
+    private Instant updatedAt;
+
     private InstanceStatus status;
 
-    private InstanceMode mode;
+    private List<Integer> partitions;
 
     public ServiceInstance getServiceInstance() {
         return serviceInstance;
@@ -33,6 +36,14 @@ public class Instance {
         this.registeredAt = registeredAt;
     }
 
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public InstanceStatus getStatus() {
         return status;
     }
@@ -41,12 +52,12 @@ public class Instance {
         this.status = status;
     }
 
-    public InstanceMode getMode() {
-        return mode;
+    public List<Integer> getPartitions() {
+        return partitions;
     }
 
-    public void setMode(InstanceMode mode) {
-        this.mode = mode;
+    public void setPartitions(List<Integer> partitions) {
+        this.partitions = partitions;
     }
 
 }

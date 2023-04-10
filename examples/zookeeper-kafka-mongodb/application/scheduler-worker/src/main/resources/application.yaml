@@ -1,0 +1,30 @@
+# server configuration
+server:
+  port: 0
+
+# spring configuration
+spring:
+  application:
+    name: ${scheduler.group-id}
+
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181
+      discovery:
+        instance-id: ${scheduler.instance-id}
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: ${scheduler.group-id}
+
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/scheduler
+
+# scheduler configuration
+scheduler:
+  group-id: worker-node
+  instance-id: ${scheduler.group-id}-${random.value}
+  max-partitions: 10
+  queue-topic: task

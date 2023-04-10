@@ -18,16 +18,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.cloud.client.ServiceInstance;
 
-import ua.ivan909020.scheduler.core.configuration.properties.SchedulerPartitioningProperties;
+import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
+import ua.ivan909020.scheduler.core.service.worker.policy.PartitionPolicyDiscovery;
 import ua.ivan909020.scheduler.core.testdata.ServiceInstanceMock;
 
 @ExtendWith(MockitoExtension.class)
 class PartitionPolicyDiscoveryTest {
 
     @Mock
-    private SchedulerPartitioningProperties partitioningProperties;
+    private SchedulerProperties schedulerProperties;
 
     @Mock
     private InstanceRegistry instanceRegistry;
@@ -47,7 +48,7 @@ class PartitionPolicyDiscoveryTest {
         doReturn(allInstances).when(instanceRegistry).getAllInstances();
 
         if (!allInstances.isEmpty()) {
-            doReturn(maxPartitions).when(partitioningProperties).getMaxPartitions();
+            doReturn(maxPartitions).when(schedulerProperties).getMaxPartitions();
         }
 
         List<Integer> actualPartitions = partitionPolicyDiscovery.computePartitions();

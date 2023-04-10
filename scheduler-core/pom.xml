@@ -37,6 +37,10 @@
             <artifactId>spring-integration-core</artifactId>
         </dependency>
         <dependency>
+            <artifactId>jackson-databind</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.uuid</groupId>
             <artifactId>java-uuid-generator</artifactId>
             <version>${uuid.generator.version}</version>

@@ -1,0 +1,7 @@
+use scheduler;
+
+db.createCollection("task");
+db.task.createIndex({ "scheduledAt" : 1 });
+sh.shardCollection("scheduler.task", { "partition" : 1 });
+
+db.createCollection("taskLock");

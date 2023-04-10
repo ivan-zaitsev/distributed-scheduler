@@ -9,17 +9,12 @@ scheduler-core: Java 17, Maven, Spring 3
 
 Providers database (required):
 ```
-scheduler-discovery-provider-database-postresql: PostgreSQL
+scheduler-database-provider-mongodb: Spring Data MongoDB
 ```
 
 Providers discovery (required):
 ```
-scheduler-discovery-provider-discovery-zookeeper: Spring Cloud Zookeeper
-```
-
-Providers leader (optional):
-```
-scheduler-discovery-provider-leader-zookeeper: Spring Cloud Zookeeper
+scheduler-discovery-provider-zookeeper: Spring Cloud Zookeeper
 ```
 
 UI (optional):
@@ -30,7 +25,7 @@ scheduler-ui: Angular 15
 Examples (optional):
 ```
 infrastructure: Terraform, Kubernetes
-scheduler-rest-api-gateway-zookeeper: Spring Cloud Gateway, Zookeeper
-scheduler-partitioning-worker-zookeper: Zookeeper Discovery Provider
-scheduler-leadership-worker-zookeper: Zookeeper Leader Provider
+zookeeper-kafka-mongodb:
+  scheduler-rest-api-gateway: Spring Cloud Gateway, Spring Cloud Zookeeper
+  scheduler-worker: Zookeeper Discovery Provider, MongoDB Database Provider
 ```
