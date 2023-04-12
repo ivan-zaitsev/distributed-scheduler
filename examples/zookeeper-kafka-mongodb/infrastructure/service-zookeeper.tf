@@ -5,17 +5,20 @@ resource "kubernetes_manifest" "service_zookeeper" {
     metadata:
       labels:
         service: zookeeper
-      name: zookeeper-service
-      namespace: default
+      name: zookeeper
+      namespace: scheduler
     spec:
+      type: LoadBalancer
+      selector:
+        service: zookeeper
       ports:
         - name: client
           port: 2181
           targetPort: 2181
-      selector:
-        service: zookeeper
     EOF
   )
+
+  depends_on = [kubernetes_manifest.namespace_scheduler]
 }
 
 resource "kubernetes_manifest" "statefulset_zookeeper" {
@@ -25,8 +28,8 @@ resource "kubernetes_manifest" "statefulset_zookeeper" {
     metadata:
       labels:
         service: zookeeper
-      name: zookeeper-statefulset
-      namespace: default
+      name: zookeeper
+      namespace: scheduler
     spec:
       replicas: 1
       selector:
@@ -59,7 +62,9 @@ resource "kubernetes_manifest" "statefulset_zookeeper" {
             storageClassName: nfs-csi
             resources:
               requests:
-                storage: 10Gi
+                storage: 8Gi
     EOF
   )
+
+  depends_on = [kubernetes_manifest.namespace_scheduler]
 }

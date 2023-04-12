@@ -20,11 +20,11 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/scheduler
+      uri: mongodb://root:password@127.0.0.1:27017/scheduler?authSource=admin
 
 # scheduler configuration
 scheduler:
   group-id: worker-node
   instance-id: ${scheduler.group-id}-${random.value}
-  max-partitions: 10
+  max-partitions: 8
   queue-topic: task

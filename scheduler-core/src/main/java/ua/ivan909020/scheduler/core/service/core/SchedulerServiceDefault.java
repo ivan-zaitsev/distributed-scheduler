@@ -42,8 +42,8 @@ public class SchedulerServiceDefault implements SchedulerService {
     public void schedule(ScheduleTaskRequest request) {
         Task task = new Task();
         task.setPartition(partitionGenerator.generate());
-        task.setVersion(1L);
         task.setId(Generators.timeBasedEpochGenerator().generate().toString());
+        task.setVersion(1L);
         task.setStatus(TaskStatus.SCHEDULED);
         task.setExecuteAt(request.getExecuteAt());
         task.setName(request.getName());
