@@ -5,13 +5,15 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
 import { AppService } from '../app.service';
 
 @Injectable()
-export class InstancesService {
+export class InstanceService {
 
   constructor(private http: HttpClient) {
   }
 
   findAll(): Observable<Instance[]> {
-    return this.http.get<Instance[]>(AppService.basePath + "/api/v1/instances")
+    const url: string = AppService.basePath + "/api/v1/instances";
+
+    return this.http.get<Instance[]>(url)
       .pipe(retry(1), catchError(error => throwError(() => error)));
   }
 

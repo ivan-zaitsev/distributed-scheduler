@@ -5,13 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InstanceComponent } from './instance/instance.component';
-import { InstancesService } from './instance/instance.service';
+import { InstanceService } from './instance/instance.service';
+import { TaskComponent } from './task/task.component';
+import { TaskService } from './task/task.service';
 import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InstanceComponent
+    InstanceComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,8 @@ import { AppService } from './app.service';
   ],
   providers: [
     AppService,
-    InstancesService
+    InstanceService,
+    TaskService
   ],
   bootstrap: [
     AppComponent

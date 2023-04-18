@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Instance } from './instance';
-import { InstancesService as InstanceService } from './instance.service';
+import { InstanceService } from './instance.service';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-instances',
+  selector: 'app-instance',
   templateUrl: './instance.component.html'
 })
 export class InstanceComponent implements OnInit {
@@ -14,7 +15,9 @@ export class InstanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.instanceService.findAll().subscribe({
+    const result: Observable<Instance[]> = this.instanceService.findAll();
+
+    result.subscribe({
       next: (data: Instance[]) => this.instances = data,
       error: (error: any) => console.log(error)
     });
