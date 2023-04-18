@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import ua.ivan909020.scheduler.core.repository.TaskRepository;
 import ua.ivan909020.scheduler.database.mongo.repository.TaskLockRepository;
 import ua.ivan909020.scheduler.database.mongo.repository.TaskLockRepositoryMongo;
-import ua.ivan909020.scheduler.database.mongo.repository.TaskRepositoryMongo;
+import ua.ivan909020.scheduler.database.mongo.repository.TaskRepositoryExtendedMongo;
 
 @Configuration
 public class MongoAutoConfiguration {
@@ -22,7 +22,7 @@ public class MongoAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public TaskRepository taskRepository(MongoTemplate mongoTemplate, TaskLockRepository taskLockRepository) {
-        return new TaskRepositoryMongo(mongoTemplate, taskLockRepository);
+        return new TaskRepositoryExtendedMongo(mongoTemplate, taskLockRepository);
     }
 
 }

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.repository.TaskRepository;
-import ua.ivan909020.scheduler.core.service.core.PartitionGenerator;
-import ua.ivan909020.scheduler.core.service.core.PartitionGeneratorDefault;
+import ua.ivan909020.scheduler.core.service.core.PartitionService;
+import ua.ivan909020.scheduler.core.service.core.PartitionServiceDefault;
 import ua.ivan909020.scheduler.core.service.core.SchedulerService;
 import ua.ivan909020.scheduler.core.service.core.SchedulerServiceDefault;
 import ua.ivan909020.scheduler.core.service.worker.WorkerService;
@@ -26,18 +26,18 @@ public class SchedulerAutoConfiguration {
     }
 
     @Bean
-    public PartitionGenerator partitionGenerator(SchedulerProperties schedulerProperties) {
-        return new PartitionGeneratorDefault(schedulerProperties);
+    public PartitionService partitionService(SchedulerProperties schedulerProperties) {
+        return new PartitionServiceDefault(schedulerProperties);
     }
 
     @Bean
     @ConditionalOnMissingBean
     public SchedulerService schedulerService(
-            PartitionGenerator partitionGenerator,
+            PartitionService partitionService,
             Set<WorkerService> workerServices,
             TaskRepository taskRepository) {
 
-        return new SchedulerServiceDefault(partitionGenerator, workerServices, taskRepository);
+        return new SchedulerServiceDefault(partitionService, workerServices, taskRepository);
     }
 
 }

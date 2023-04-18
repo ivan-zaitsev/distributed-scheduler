@@ -12,18 +12,18 @@ import ua.ivan909020.scheduler.core.service.worker.WorkerService;
 
 public class SchedulerServiceDefault implements SchedulerService {
 
-    private final PartitionGenerator partitionGenerator;
+    private final PartitionService partitionService;
 
     private final Set<WorkerService> workerServices;
 
     private final TaskRepository taskRepository;
 
     public SchedulerServiceDefault(
-            PartitionGenerator partitionGenerator,
+            PartitionService partitionService,
             Set<WorkerService> workerServices,
             TaskRepository taskRepository) {
 
-        this.partitionGenerator = partitionGenerator;
+        this.partitionService = partitionService;
         this.workerServices = workerServices;
         this.taskRepository = taskRepository;
     }
@@ -41,7 +41,7 @@ public class SchedulerServiceDefault implements SchedulerService {
     @Override
     public void schedule(ScheduleTaskRequest request) {
         Task task = new Task();
-        task.setPartition(partitionGenerator.generate());
+        task.setPartition(partitionService.generate());
         task.setId(Generators.timeBasedEpochGenerator().generate().toString());
         task.setVersion(1L);
         task.setStatus(TaskStatus.SCHEDULED);

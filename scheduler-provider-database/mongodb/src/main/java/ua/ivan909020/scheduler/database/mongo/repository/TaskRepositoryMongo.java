@@ -18,9 +18,9 @@ import ua.ivan909020.scheduler.database.mongo.model.entity.TaskLock;
 
 public class TaskRepositoryMongo implements TaskRepository {
 
-    private MongoTemplate mongoTemplate;
+    protected MongoTemplate mongoTemplate;
 
-    private TaskLockRepository taskLockRepository;
+    protected TaskLockRepository taskLockRepository;
 
     public TaskRepositoryMongo(MongoTemplate mongoTemplate, TaskLockRepository taskLockRepository) {
         this.mongoTemplate = mongoTemplate;

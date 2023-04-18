@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
-import ua.ivan909020.scheduler.rest.controller.instance.InstanceRestController;
+import ua.ivan909020.scheduler.rest.controller.endpoint.instance.InstanceRestController;
 import ua.ivan909020.scheduler.rest.service.instance.InstanceService;
 import ua.ivan909020.scheduler.rest.service.instance.InstanceServiceDefault;
 

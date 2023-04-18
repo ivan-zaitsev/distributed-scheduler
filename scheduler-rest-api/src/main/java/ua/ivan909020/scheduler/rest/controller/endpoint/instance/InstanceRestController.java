@@ -1,4 +1,4 @@
-package ua.ivan909020.scheduler.rest.controller.instance;
+package ua.ivan909020.scheduler.rest.controller.endpoint.instance;
 
 import java.util.List;
 
