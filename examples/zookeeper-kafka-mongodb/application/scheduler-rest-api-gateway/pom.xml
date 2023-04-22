@@ -22,6 +22,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <spring.cloud.version>2022.0.1</spring.cloud.version>
+        <elastic.apm.version>1.37.0</elastic.apm.version>
     </properties>
 
     <dependencies>
@@ -41,6 +42,17 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>co.elastic.apm</groupId>
+            <artifactId>apm-agent-api</artifactId>
+            <version>${elastic.apm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>co.elastic.apm</groupId>
+            <artifactId>apm-agent-attach</artifactId>
+            <version>${elastic.apm.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -56,6 +68,8 @@
     </dependencyManagement>
 
     <build>
+        <finalName>distributed-scheduler-rest-api-gateway</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

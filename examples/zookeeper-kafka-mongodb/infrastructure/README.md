@@ -22,6 +22,10 @@ To access kubernetes resources externally outside cluster one option is to tunne
 kubectl apply -f kubernetes/wireguard.yaml
 kubectl exec -it statefulset.apps/wireguard -- cat /config/peer1/peer1.conf
 ```
+### Install docker registry
+```
+kubectl apply -f kubernetes/docker-registry.yaml
+```
 
 ## Install terraform
 
@@ -31,7 +35,7 @@ terraform -chdir=terraform apply -target null_resource.elastic_operator_manifest
 terraform -chdir=terraform apply
 ```
 
-### Get elastic password
+### Retrieve elastic password
 ```
 kubectl get secret elasticsearch-es-elastic-user -n scheduler -o jsonpath='{.data.elastic}' | base64 -d
 ```

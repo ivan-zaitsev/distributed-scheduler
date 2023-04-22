@@ -10,6 +10,8 @@ spring:
   cloud:
     zookeeper:
       connect-string: zookeeper-headless.scheduler.svc.cluster.local:2181
+      discovery:
+        prefer-ip-address: true
 
     gateway:
       globalcors:
