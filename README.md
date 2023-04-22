@@ -4,7 +4,7 @@
 
 Core (required):
 ```
-scheduler-core: Java 17, Maven, Spring 3
+scheduler-core: Java 17, Maven, Spring 3, Elastic APM
 ```
 
 Providers discovery (required):

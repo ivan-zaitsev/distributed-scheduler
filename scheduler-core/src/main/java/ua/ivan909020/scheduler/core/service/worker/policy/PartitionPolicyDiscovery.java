@@ -1,9 +1,11 @@
 package ua.ivan909020.scheduler.core.service.worker.policy;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
+import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 
 public class PartitionPolicyDiscovery implements PartitionPolicy {
@@ -20,24 +22,23 @@ public class PartitionPolicyDiscovery implements PartitionPolicy {
     @Override
     public List<Integer> computePartitions() {
         List<String> instanceIds = instanceRegistry.getAllInstances().stream()
+                .sorted(Comparator.comparing(Instance::getRegisteredAt))
                 .map(instance -> instance.getServiceInstance().getInstanceId())
-                .sorted()
                 .toList();
 
         int instancesCount = instanceIds.size();
         int currentInstanceIndex =
-                instanceIds.indexOf(instanceRegistry.getCurrentInstance().getServiceInstance().getInstanceId());
+                instanceIds.indexOf(instanceRegistry.getCurrentInstance().getServiceInstance().getInstanceId()) + 1;
 
         if (areInstancesEmpty(instancesCount, currentInstanceIndex)) {
             return List.of();
         }
 
-        int currentPartitionsCount = calculateCurrentInstancePartitionsCount(instancesCount);
-
         if (areThereMoreInstancesThanPartitions(currentInstanceIndex)) {
             return List.of();
         }
 
+        int currentPartitionsCount = calculateCurrentInstancePartitionsCount(instancesCount);
         int start = calculatePartitionStartIndex(currentInstanceIndex, currentPartitionsCount);
         int end = calculatePartitionEndIndex(instancesCount, currentInstanceIndex, currentPartitionsCount);
 
@@ -45,30 +46,26 @@ public class PartitionPolicyDiscovery implements PartitionPolicy {
     }
 
     private boolean areInstancesEmpty(int instancesCount, int currentInstanceIndex) {
-        return instancesCount == 0 || currentInstanceIndex == -1;
-    }
-
-    private int calculateCurrentInstancePartitionsCount(int instancesCount) {
-        if (schedulerProperties.getMaxPartitions() > instancesCount) {
-            return schedulerProperties.getMaxPartitions() / instancesCount;
-        } else {
-            return schedulerProperties.getMaxPartitions();
-        }
+        return instancesCount == 0 || currentInstanceIndex == 0;
     }
 
     private boolean areThereMoreInstancesThanPartitions(int currentInstanceIndex) {
-        return currentInstanceIndex >= schedulerProperties.getMaxPartitions() - 1;
+        return currentInstanceIndex > schedulerProperties.getMaxPartitions();
+    }
+
+    private int calculateCurrentInstancePartitionsCount(int instancesCount) {
+        return (int) Math.ceil((double) schedulerProperties.getMaxPartitions() / instancesCount);
     }
 
     private int calculatePartitionStartIndex(int currentInstanceIndex, int currentInstancePartitionsCount) {
-        return currentInstanceIndex * currentInstancePartitionsCount;
+        return ((currentInstanceIndex - 1) * currentInstancePartitionsCount) + 1;
     }
 
     private int calculatePartitionEndIndex(int instancesCount, int currentInstanceIndex, int currentPartitionsCount) {
-        if (currentInstanceIndex == instancesCount - 1) {
-            return schedulerProperties.getMaxPartitions() - 1;
+        if (currentInstanceIndex == instancesCount) {
+            return schedulerProperties.getMaxPartitions();
         } else {
-            return ((currentInstanceIndex + 1) * currentPartitionsCount) - 1;
+            return currentInstanceIndex * currentPartitionsCount;
         }
     }
 

@@ -30,6 +30,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>ua.ivan909020.scheduler</groupId>
             <artifactId>distributed-scheduler-rest-api</artifactId>
             <version>${distributed.scheduler.version}</version>

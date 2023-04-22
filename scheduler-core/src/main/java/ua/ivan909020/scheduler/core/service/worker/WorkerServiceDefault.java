@@ -103,7 +103,11 @@ public class WorkerServiceDefault implements WorkerService {
         logger.info("Recreate partitions");
 
         consumePartitionScanners(PartitionScanner::stop);
-        partitionScanners = List.of(partitionScannerFactory.create(newPartitions));
+        if (newPartitions.isEmpty()) {
+            partitionScanners = List.of();
+        } else {
+            partitionScanners = List.of(partitionScannerFactory.create(newPartitions));
+        }
         consumePartitionScanners(PartitionScanner::start);
     }
 

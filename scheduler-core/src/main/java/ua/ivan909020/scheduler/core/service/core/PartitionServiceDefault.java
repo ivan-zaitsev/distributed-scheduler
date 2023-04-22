@@ -18,7 +18,7 @@ public class PartitionServiceDefault implements PartitionService {
 
     @Override
     public List<Integer> getAll() {
-        return IntStream.rangeClosed(0, schedulerProperties.getMaxPartitions()).boxed().toList();
+        return IntStream.rangeClosed(1, schedulerProperties.getMaxPartitions()).boxed().toList();
     }
 
     @Override

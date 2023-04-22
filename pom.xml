@@ -12,9 +12,9 @@
     <modules>
         <module>scheduler-core</module>
         <module>scheduler-rest-api</module>
-        <module>scheduler-providers-discovery/zookeeper</module>
-        <module>scheduler-providers-leader/zookeeper</module>
-        <module>scheduler-providers-database/postgresql</module>
+        <module>scheduler-provider-discovery/zookeeper</module>
+        <module>scheduler-provider-queue/kafka</module>
+        <module>scheduler-provider-database/mongodb</module>
     </modules>
 
     <properties>

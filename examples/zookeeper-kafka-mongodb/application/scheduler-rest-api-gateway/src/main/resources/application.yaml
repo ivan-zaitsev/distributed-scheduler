@@ -9,7 +9,7 @@ spring:
 
   cloud:
     zookeeper:
-      connect-string: 127.0.0.1:2181
+      connect-string: zookeeper-headless.scheduler.svc.cluster.local:2181
 
     gateway:
       globalcors:

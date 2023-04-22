@@ -20,11 +20,11 @@ provider "helm" {
 }
 
 resource "kubernetes_manifest" "namespace_scheduler" {
-  manifest = {
-    "apiVersion" = "v1"
-    "kind"       = "Namespace"
-    "metadata" = {
-      "name" = "scheduler"
-    }
-  }
+  manifest = yamldecode(<<-EOF
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: scheduler
+    EOF
+  )
 }

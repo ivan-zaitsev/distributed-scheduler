@@ -1,5 +1,5 @@
 kafka-topics.sh --create \
 --topic task \
---partitions 8 \
---replication-factor 4 \
---bootstrap-server localhost:9092
+--partitions 6 \
+--replication-factor 3 \
+--bootstrap-server kafka-headless.scheduler.svc.cluster.local:9092

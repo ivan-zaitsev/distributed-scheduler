@@ -9,22 +9,22 @@ spring:
 
   cloud:
     zookeeper:
-      connect-string: 127.0.0.1:2181
+      connect-string: zookeeper-headless.scheduler.svc.cluster.local:2181
       discovery:
         instance-id: ${scheduler.instance-id}
 
   kafka:
-    bootstrap-servers: 127.0.0.1:9092
+    bootstrap-servers: kafka-headless.scheduler.svc.cluster.local:9092
     consumer:
       group-id: ${scheduler.group-id}
 
   data:
     mongodb:
-      uri: mongodb://root:password@127.0.0.1:27017/scheduler?authSource=admin
+      uri: mongodb://root:password@mongo-mongos-sharded-headless.scheduler.svc.cluster.local:27017/scheduler?authSource=admin
 
 # scheduler configuration
 scheduler:
   group-id: worker-node
   instance-id: ${scheduler.group-id}-${random.value}
-  max-partitions: 8
+  max-partitions: 6
   queue-topic: task

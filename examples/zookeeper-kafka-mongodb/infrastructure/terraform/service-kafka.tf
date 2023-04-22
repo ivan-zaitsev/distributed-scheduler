@@ -1,4 +1,4 @@
-resource "helm_release" "kafka_cluster" {
+resource "helm_release" "kafka_deployment" {
   name      = "kafka"
   namespace = "scheduler"
 
@@ -7,17 +7,11 @@ resource "helm_release" "kafka_cluster" {
   version    = "21.4.4"
 
   values = [<<-EOF
-    externalAccess:
-      enabled: true
-      service:
-        type: LoadBalancer
-      autoDiscovery:
-        enabled: true
-    rbac:
-      create: true
     global:
       storageClass: nfs-csi
     replicaCount: 3
+    persistence:
+      size: 100Gi
     kraft:
       enabled: true
     zookeeper:

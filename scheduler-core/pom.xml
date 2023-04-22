@@ -17,6 +17,7 @@
 
     <properties>
         <uuid.generator.version>4.1.0</uuid.generator.version>
+        <elastic.apm.version>1.37.0</elastic.apm.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,7 @@
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-core</artifactId>
         </dependency>
+
         <dependency>
             <artifactId>jackson-databind</artifactId>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -44,6 +46,17 @@
             <groupId>com.fasterxml.uuid</groupId>
             <artifactId>java-uuid-generator</artifactId>
             <version>${uuid.generator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>co.elastic.apm</groupId>
+            <artifactId>apm-agent-api</artifactId>
+            <version>${elastic.apm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>co.elastic.apm</groupId>
+            <artifactId>apm-agent-attach</artifactId>
+            <version>${elastic.apm.version}</version>
         </dependency>
     </dependencies>
 

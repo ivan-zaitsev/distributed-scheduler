@@ -1,11 +1,15 @@
 package ua.ivan909020.scheduler.worker;
 
+import java.time.Instant;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.event.InstanceRegisteredEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 
+import co.elastic.apm.attach.ElasticApmAttacher;
+import ua.ivan909020.scheduler.core.model.domain.task.ScheduleTaskRequest;
 import ua.ivan909020.scheduler.core.model.entity.Task;
 import ua.ivan909020.scheduler.core.service.core.SchedulerService;
 import ua.ivan909020.scheduler.core.service.handler.TaskHandler;
@@ -21,16 +25,16 @@ public class Application {
 
     @EventListener(InstanceRegisteredEvent.class)
     public void handleInstanceRegisteredEvent() {
-//        new Thread(() -> {
-//            for (int i = 0; i < 100000; i++) {
-//                ScheduleTaskRequest request = new ScheduleTaskRequest();
-//                request.setExecuteAt(Instant.now());
-//                request.setName("TEST_TASK");
-//                request.setData("");
-//
-//                schedulerService.schedule(request);
-//            }
-//        }).start();
+        new Thread(() -> {
+            for (int i = 0; i < 100000; i++) {
+                ScheduleTaskRequest request = new ScheduleTaskRequest();
+                request.setExecuteAt(Instant.now());
+                request.setName("TEST_TASK");
+                request.setData("");
+
+                schedulerService.schedule(request);
+            }
+        }).start();
 
         schedulerService.start();
     }
@@ -53,6 +57,8 @@ public class Application {
     }
 
     public static void main(String[] args) {
+        ElasticApmAttacher.attach();
+
         SpringApplication.run(Application.class, args);
     }
 

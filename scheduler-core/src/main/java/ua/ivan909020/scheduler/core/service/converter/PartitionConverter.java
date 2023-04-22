@@ -11,6 +11,9 @@ public class PartitionConverter {
     }
 
     public static List<Integer> toList(String partitions) {
+        if (partitions.isEmpty()) {
+            return List.of();
+        }
         return Arrays.stream(partitions.split(",")).mapToInt(Integer::parseInt).boxed().toList();
     }
 

@@ -9,7 +9,7 @@
         <groupId>ua.ivan909020.scheduler</groupId>
         <artifactId>distributed-scheduler-parent</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>distributed-scheduler-rest-api</artifactId>
