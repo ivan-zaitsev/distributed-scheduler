@@ -4,7 +4,7 @@
 
 Core (required):
 ```
-scheduler-core: Java 17, Maven, Spring 3, Elastic APM
+scheduler-core: Java 17, Maven, Spring 3
 ```
 
 Providers discovery (required):
@@ -31,6 +31,6 @@ Examples (optional):
 ```
 infrastructure: Terraform, Kubernetes
 zookeeper-kafka-mongodb:
-  scheduler-rest-api-gateway: Spring Cloud Gateway, Spring Cloud Zookeeper
-  scheduler-worker: Zookeeper Discovery Provider, Kafka Queue Provider, MongoDB Database Provider
+  scheduler-rest-api-gateway: Spring Cloud Gateway, Spring Cloud Zookeeper, Elastic APM
+  scheduler-worker: Zookeeper Discovery Provider, Kafka Queue Provider, MongoDB Database Provider, Elastic APM
 ```

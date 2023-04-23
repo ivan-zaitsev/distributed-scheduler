@@ -11,7 +11,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import co.elastic.apm.api.CaptureTransaction;
 import ua.ivan909020.scheduler.core.model.domain.queue.QueueMessage;
 import ua.ivan909020.scheduler.core.model.entity.Task;
 import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
@@ -76,7 +75,6 @@ public class PartitionScannerDefault implements PartitionScanner {
         executorService.shutdownNow();
     }
 
-    @CaptureTransaction("Scan partitions")
     private void scan(List<Integer> partitions) {
         List<Task> tasks =
                 taskRepository.findAllOverdue(partitions, List.of(SCHEDULED), Instant.now(), TASK_FETCH_LIMIT);
