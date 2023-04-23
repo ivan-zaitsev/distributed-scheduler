@@ -23,7 +23,7 @@ public class PartitionServiceDefault implements PartitionService {
 
     @Override
     public int generate() {
-        return random.nextInt(schedulerProperties.getMaxPartitions() + 1);
+        return random.nextInt(schedulerProperties.getMaxPartitions()) + 1;
     }
 
 }

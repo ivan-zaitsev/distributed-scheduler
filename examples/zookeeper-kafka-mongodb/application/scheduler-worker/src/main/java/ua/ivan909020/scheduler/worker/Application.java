@@ -1,6 +1,10 @@
 package ua.ivan909020.scheduler.worker;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,16 +29,20 @@ public class Application {
 
     @EventListener(InstanceRegisteredEvent.class)
     public void handleInstanceRegisteredEvent() {
-        new Thread(() -> {
-            for (int i = 0; i < 100000; i++) {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        Instant timestamp = Instant.now().plus(Duration.ofMinutes(1));
+
+        for (AtomicInteger i = new AtomicInteger(0); i.get() < 10000; i.incrementAndGet()) {
+            executorService.submit(() -> {
                 ScheduleTaskRequest request = new ScheduleTaskRequest();
-                request.setExecuteAt(Instant.now());
-                request.setName("TEST_TASK");
+                request.setExecuteAt(timestamp);
+                request.setName(String.format("TEST_TASK_%d", i.get()));
                 request.setData("");
 
                 schedulerService.schedule(request);
-            }
-        }).start();
+            });
+        }
 
         schedulerService.start();
     }
@@ -45,7 +53,7 @@ public class Application {
 
             @Override
             public boolean supports(Task task) {
-                return "TEST_TASK".equals(task.getName());
+                return task.getName().startsWith("TEST_TASK");
             }
 
             @Override

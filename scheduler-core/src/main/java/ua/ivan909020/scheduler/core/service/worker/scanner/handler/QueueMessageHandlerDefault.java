@@ -61,7 +61,7 @@ public class QueueMessageHandlerDefault implements QueueMessageHandler {
             task.setStatus(TaskStatus.SUCCEEDED);
             taskRepository.updateStatus(task);
 
-            logger.warn("Task successfully handled: {}", task);
+            logger.info("Task successfully handled: {}", task);
         } catch (Exception e) {
             task.setStatus(TaskStatus.FAILED);
             taskRepository.updateStatus(task);
