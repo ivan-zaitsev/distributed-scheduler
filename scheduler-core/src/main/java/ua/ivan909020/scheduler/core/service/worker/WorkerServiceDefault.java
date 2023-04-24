@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Consumer;
 
@@ -35,7 +36,7 @@ public class WorkerServiceDefault implements WorkerService {
 
     private final PartitionScannerFactory partitionScannerFactory;
 
-    private final ScheduledExecutorService executorService;
+    private final ScheduledExecutorService partitionExecutor;
 
     private List<PartitionScanner> partitionScanners;
 
@@ -43,14 +44,13 @@ public class WorkerServiceDefault implements WorkerService {
             PartitionPolicy partitionPolicy,
             InstanceRegistry instanceRegistry,
             PartitionScannerFactory partitionScannerFactory,
-            QueueMessageHandler queueMessageHandler,
-            ScheduledExecutorService executorService) {
+            QueueMessageHandler queueMessageHandler) {
 
         this.partitionPolicy = partitionPolicy;
-        this.executorService = executorService;
         this.instanceRegistry = instanceRegistry;
-        this.partitionScannerFactory = partitionScannerFactory;
         this.queueMessageHandler = queueMessageHandler;
+        this.partitionScannerFactory = partitionScannerFactory;
+        this.partitionExecutor = Executors.newScheduledThreadPool(1);
         this.partitionScanners = new ArrayList<>();
     }
 
@@ -60,7 +60,7 @@ public class WorkerServiceDefault implements WorkerService {
 
         queueMessageHandler.start();
 
-        executorService.scheduleWithFixedDelay(() -> {
+        partitionExecutor.scheduleWithFixedDelay(() -> {
             try {
                 updatePartitions();
             } catch(Exception e) {
@@ -76,7 +76,7 @@ public class WorkerServiceDefault implements WorkerService {
         consumePartitionScanners(PartitionScanner::stop);
         queueMessageHandler.stop();
 
-        executorService.shutdownNow();
+        partitionExecutor.shutdownNow();
     }
 
     private void updatePartitions() {

@@ -2,6 +2,7 @@ package ua.ivan909020.scheduler.core.service.worker.scanner.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import ua.ivan909020.scheduler.core.model.entity.Task;
 import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
@@ -23,16 +24,20 @@ public class QueueMessageHandlerDefault implements QueueMessageHandler {
 
     private final TaskHandlerRegistry taskHandlerRegistry;
 
+    private final ThreadPoolTaskExecutor taskHandlerExecutor;
+
     public QueueMessageHandlerDefault(
             TaskRepository taskRepository,
             QueueConsumer queueConsumer,
             JsonConverter jsonConverter,
-            TaskHandlerRegistry taskHandlerRegistry) {
+            TaskHandlerRegistry taskHandlerRegistry,
+            ThreadPoolTaskExecutor taskHandlerExecutor) {
 
         this.taskRepository = taskRepository;
         this.queueConsumer = queueConsumer;
         this.jsonConverter = jsonConverter;
         this.taskHandlerRegistry = taskHandlerRegistry;
+        this.taskHandlerExecutor = taskHandlerExecutor;
     }
 
     @Override
@@ -42,12 +47,15 @@ public class QueueMessageHandlerDefault implements QueueMessageHandler {
         queueConsumer.subscribe(message -> {
             logger.info("Received a message: {}", message);
 
-            try {
-                Task task = jsonConverter.convertToObject(message.getValue(), Task.class);
-                handle(task);
-            } catch (Exception e) {
-                logger.warn("Failed to handle a message: {}", message);
-            }
+            taskHandlerExecutor.execute(() -> {
+                try {
+                    Task task = jsonConverter.convertToObject(message.getValue(), Task.class);
+
+                    handle(task);
+                } catch (Exception e) {
+                    logger.warn("Failed to handle a message: {}", message);
+                }
+            });
         });
         queueConsumer.start();
     }
@@ -55,18 +63,22 @@ public class QueueMessageHandlerDefault implements QueueMessageHandler {
     private void handle(Task task) {
         TaskHandler taskHandler = taskHandlerRegistry.findTaskHandler(task);
 
+        Exception exception = null;
         try {
             taskHandler.handle(task);
 
-            task.setStatus(TaskStatus.SUCCEEDED);
-            taskRepository.updateStatus(task);
-
             logger.info("Task successfully handled: {}", task);
         } catch (Exception e) {
+            exception = e;
+            logger.warn("Failed to handle a task: {}", task, e);
+        }
+
+        if (exception == null) {
+            task.setStatus(TaskStatus.SUCCEEDED);
+            taskRepository.updateStatus(task);
+        } else {
             task.setStatus(TaskStatus.FAILED);
             taskRepository.updateStatus(task);
-
-            logger.warn("Failed to handle a task: {}", task, e);
         }
     }
 
@@ -75,6 +87,7 @@ public class QueueMessageHandlerDefault implements QueueMessageHandler {
         logger.info("Stopping");
 
         queueConsumer.stop();
+        taskHandlerExecutor.shutdown();
     }
 
 }

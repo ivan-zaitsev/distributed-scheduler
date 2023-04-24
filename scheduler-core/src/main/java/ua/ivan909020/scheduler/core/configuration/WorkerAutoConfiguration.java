@@ -1,11 +1,9 @@
 package ua.ivan909020.scheduler.core.configuration;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -58,9 +56,11 @@ public class WorkerAutoConfiguration {
             TaskRepository taskRepository,
             QueueConsumer queueConsumer,
             JsonConverter jsonConverter,
-            TaskHandlerRegistry taskHandlerRegistry) {
+            TaskHandlerRegistry taskHandlerRegistry,
+            ThreadPoolTaskExecutor taskExecutor) {
 
-        return new QueueMessageHandlerDefault(taskRepository, queueConsumer, jsonConverter, taskHandlerRegistry);
+        return new QueueMessageHandlerDefault(taskRepository, queueConsumer, jsonConverter,
+                taskHandlerRegistry, taskExecutor);
     }
 
     @Bean
@@ -71,10 +71,8 @@ public class WorkerAutoConfiguration {
             PartitionScannerFactory partitionScannerFactory,
             QueueMessageHandler queueMessageHandler) {
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-
-        return new WorkerServiceDefault(partitionPolicy, instanceRegistry, 
-                partitionScannerFactory, queueMessageHandler, executorService);
+        return new WorkerServiceDefault(partitionPolicy, instanceRegistry,
+                partitionScannerFactory, queueMessageHandler);
     }
 
 }

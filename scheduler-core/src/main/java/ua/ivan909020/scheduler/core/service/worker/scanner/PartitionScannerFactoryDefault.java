@@ -1,8 +1,6 @@
 package ua.ivan909020.scheduler.core.service.worker.scanner;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import ua.ivan909020.scheduler.core.queue.QueueProducer;
 import ua.ivan909020.scheduler.core.repository.TaskRepository;
@@ -28,8 +26,7 @@ public class PartitionScannerFactoryDefault implements PartitionScannerFactory {
 
     @Override
     public PartitionScanner create(List<Integer> partitions) {
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-        return new PartitionScannerDefault(taskRepository, queueProducer, jsonConverter, executorService, partitions);
+        return new PartitionScannerDefault(taskRepository, queueProducer, jsonConverter, partitions);
     }
 
 }

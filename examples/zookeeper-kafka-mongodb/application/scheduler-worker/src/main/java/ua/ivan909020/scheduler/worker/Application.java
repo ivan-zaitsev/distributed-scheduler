@@ -29,15 +29,16 @@ public class Application {
 
     @EventListener(InstanceRegisteredEvent.class)
     public void handleInstanceRegisteredEvent() {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(8);
 
         Instant timestamp = Instant.now().plus(Duration.ofMinutes(1));
+        AtomicInteger counter = new AtomicInteger(0);
 
-        for (AtomicInteger i = new AtomicInteger(0); i.get() < 10000; i.incrementAndGet()) {
+        for (int i = 0; i < 10000; i++) {
             executorService.submit(() -> {
                 ScheduleTaskRequest request = new ScheduleTaskRequest();
                 request.setExecuteAt(timestamp);
-                request.setName(String.format("TEST_TASK_%d", i.get()));
+                request.setName(String.format("TEST_TASK_%d", counter.incrementAndGet()));
                 request.setData("");
 
                 schedulerService.schedule(request);

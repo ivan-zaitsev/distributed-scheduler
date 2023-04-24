@@ -6,6 +6,7 @@ import static ua.ivan909020.scheduler.core.model.entity.TaskStatus.SCHEDULED;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class PartitionScannerDefault implements PartitionScanner {
 
     private final JsonConverter jsonConverter;
 
-    private final ScheduledExecutorService executorService;
+    private final ScheduledExecutorService partitionExecutor = Executors.newScheduledThreadPool(1);
 
     private final List<Integer> partitions;
 
@@ -40,13 +41,11 @@ public class PartitionScannerDefault implements PartitionScanner {
             TaskRepository taskRepository,
             QueueProducer queueProducer,
             JsonConverter jsonConverter,
-            ScheduledExecutorService executorService,
             List<Integer> partitions) {
 
         this.taskRepository = taskRepository;
         this.queueProducer = queueProducer;
         this.jsonConverter = jsonConverter;
-        this.executorService = executorService;
         this.partitions = partitions;
     }
 
@@ -59,7 +58,7 @@ public class PartitionScannerDefault implements PartitionScanner {
     public void start() {
         logger.info("Starting, partitions: {}", partitions);
 
-        executorService.scheduleWithFixedDelay(() -> {
+        partitionExecutor.scheduleWithFixedDelay(() -> {
             try {
                 scan(partitions);
             } catch(Exception e) {
@@ -72,7 +71,7 @@ public class PartitionScannerDefault implements PartitionScanner {
     public void stop() {
         logger.info("Stopping, partitions: {}", partitions);
 
-        executorService.shutdownNow();
+        partitionExecutor.shutdownNow();
     }
 
     private void scan(List<Integer> partitions) {
@@ -84,7 +83,7 @@ public class PartitionScannerDefault implements PartitionScanner {
         for (Task task : tasks) {
             try {
                 send(task);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 logger.warn("Failed to send a task: {}", task, e);
             }
         }
