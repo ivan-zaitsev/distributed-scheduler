@@ -131,8 +131,8 @@ class PartitionPolicyDiscoveryTest {
         return Stream.of(
                 Arguments.of(allInstances.get(0), allInstances, maxPartitions, List.of(1, 2, 3)),
                 Arguments.of(allInstances.get(1), allInstances, maxPartitions, List.of(4, 5, 6)),
-                Arguments.of(allInstances.get(2), allInstances, maxPartitions, List.of(7, 8, 9)),
-                Arguments.of(allInstances.get(3), allInstances, maxPartitions, List.of(10)));
+                Arguments.of(allInstances.get(2), allInstances, maxPartitions, List.of(7, 8)),
+                Arguments.of(allInstances.get(3), allInstances, maxPartitions, List.of(9, 10)));
     }
 
     private static Stream<Arguments> argumets_6() {

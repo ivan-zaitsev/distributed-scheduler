@@ -1,5 +1,6 @@
 package ua.ivan909020.scheduler.core.service.worker.policy;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -27,46 +28,30 @@ public class PartitionPolicyDiscovery implements PartitionPolicy {
                 .toList();
 
         int instancesCount = instanceIds.size();
-        int currentInstanceIndex =
-                instanceIds.indexOf(instanceRegistry.getCurrentInstance().getServiceInstance().getInstanceId()) + 1;
+        int currentInstanceIndex = instanceIds
+                .indexOf(instanceRegistry.getCurrentInstance().getServiceInstance().getInstanceId());
 
-        if (areInstancesEmpty(instancesCount, currentInstanceIndex)) {
+        if (instancesCount == 0 || currentInstanceIndex == -1) {
             return List.of();
         }
 
-        if (areThereMoreInstancesThanPartitions(currentInstanceIndex)) {
-            return List.of();
+        List<Integer> partitions = IntStream.rangeClosed(1, schedulerProperties.getMaxPartitions()).boxed().toList();
+        return partition(partitions, instanceIds.size()).get(currentInstanceIndex);
+    }
+
+    private List<List<Integer>> partition(List<Integer> partitions, int partitionSize) {
+        List<List<Integer>> result = new ArrayList<>(partitionSize);
+
+        int quotient = partitions.size() / partitionSize;
+        int reminder = partitions.size() % partitionSize;
+
+        int offset = 0;
+        for (int i = 0; i < partitionSize; i++) {
+            int size = quotient + (i < reminder ? 1 : 0);
+            result.add(partitions.subList(offset, offset + size));
+            offset += size;
         }
-
-        int currentPartitionsCount = calculateCurrentInstancePartitionsCount(instancesCount);
-        int start = calculatePartitionStartIndex(currentInstanceIndex, currentPartitionsCount);
-        int end = calculatePartitionEndIndex(instancesCount, currentInstanceIndex, currentPartitionsCount);
-
-        return IntStream.rangeClosed(start, end).boxed().toList();
-    }
-
-    private boolean areInstancesEmpty(int instancesCount, int currentInstanceIndex) {
-        return instancesCount == 0 || currentInstanceIndex == 0;
-    }
-
-    private boolean areThereMoreInstancesThanPartitions(int currentInstanceIndex) {
-        return currentInstanceIndex > schedulerProperties.getMaxPartitions();
-    }
-
-    private int calculateCurrentInstancePartitionsCount(int instancesCount) {
-        return (int) Math.ceil((double) schedulerProperties.getMaxPartitions() / instancesCount);
-    }
-
-    private int calculatePartitionStartIndex(int currentInstanceIndex, int currentInstancePartitionsCount) {
-        return ((currentInstanceIndex - 1) * currentInstancePartitionsCount) + 1;
-    }
-
-    private int calculatePartitionEndIndex(int instancesCount, int currentInstanceIndex, int currentPartitionsCount) {
-        if (currentInstanceIndex == instancesCount) {
-            return schedulerProperties.getMaxPartitions();
-        } else {
-            return currentInstanceIndex * currentPartitionsCount;
-        }
+        return result;
     }
 
 }

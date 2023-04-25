@@ -21,9 +21,9 @@ import ua.ivan909020.scheduler.core.service.converter.JsonConverter;
 
 public class PartitionScannerDefault implements PartitionScanner {
 
-    private static final Duration SCAN_INTERVAL = Duration.ofSeconds(1);
+    private static final Duration SCAN_INTERVAL = Duration.ofSeconds(5);
 
-    private static final int TASK_FETCH_LIMIT = 1000;
+    private static final int TASK_FETCH_LIMIT = 500;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

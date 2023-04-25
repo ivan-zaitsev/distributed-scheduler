@@ -57,10 +57,10 @@ public class WorkerAutoConfiguration {
             QueueConsumer queueConsumer,
             JsonConverter jsonConverter,
             TaskHandlerRegistry taskHandlerRegistry,
-            ThreadPoolTaskExecutor taskExecutor) {
+            ThreadPoolTaskExecutor taskHandlerExecutor) {
 
         return new QueueMessageHandlerDefault(taskRepository, queueConsumer, jsonConverter,
-                taskHandlerRegistry, taskExecutor);
+                taskHandlerRegistry, taskHandlerExecutor);
     }
 
     @Bean
