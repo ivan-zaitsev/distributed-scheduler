@@ -39,3 +39,17 @@ terraform -chdir=terraform apply
 ```
 kubectl get secret elasticsearch-es-elastic-user -n scheduler -o jsonpath='{.data.elastic}' | base64 -d
 ```
+
+## Install scripts
+
+### Install queue scripts
+Kafka:
+```
+scheduler-provider-queue/kafka/src/main/resources/schema.txt
+```
+
+### Install database scripts
+MongoDB
+```
+scheduler-provider-database/mongodb/src/main/resources/schema.txt
+```
