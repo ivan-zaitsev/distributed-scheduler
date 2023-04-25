@@ -32,7 +32,7 @@ spec:
         service: distributed-scheduler-rest-api-gateway
     spec:
       containers:
-        - image: 192.168.31.11:5000/distributed-scheduler-rest-api-gateway:1.0.0
+        - image: 192.168.1.11:5000/distributed-scheduler-rest-api-gateway:1.0.0
           imagePullPolicy: Always
           name: distributed-scheduler-rest-api-gateway
           ports:

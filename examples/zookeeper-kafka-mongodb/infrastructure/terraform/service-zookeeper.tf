@@ -11,7 +11,7 @@ resource "helm_release" "zookeeper_deployment" {
       storageClass: nfs-csi
     replicaCount: 3
     persistence:
-      size: 100Gi
+      size: 50Gi
     EOF
   ]
 

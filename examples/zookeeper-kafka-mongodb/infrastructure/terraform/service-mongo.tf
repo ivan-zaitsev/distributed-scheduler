@@ -15,13 +15,13 @@ resource "helm_release" "mongo_deployment" {
     configsvr:
       replicaCount: 3
       persistence:
-        size: 100Gi
+        size: 50Gi
     mongos:
       replicaCount: 3
     shards: 3
     shardsvr:
       persistence:
-        size: 100Gi
+        size: 50Gi
       dataNode:
         replicaCount: 3
     EOF

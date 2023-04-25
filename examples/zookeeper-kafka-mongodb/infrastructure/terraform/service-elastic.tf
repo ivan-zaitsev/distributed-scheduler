@@ -40,7 +40,7 @@ resource "kubernetes_manifest" "elasticsearch_deployment" {
                   - ReadWriteOnce
                 resources:
                   requests:
-                    storage: 100Gi
+                    storage: 50Gi
     EOF
   )
 
@@ -86,7 +86,7 @@ resource "kubernetes_manifest" "apm_server_deployment" {
       elasticsearchRef:
         name: elasticsearch
       kibanaRef:
-        name: Kibana
+        name: kibana
     EOF
   )
 

@@ -11,7 +11,7 @@ resource "helm_release" "kafka_deployment" {
       storageClass: nfs-csi
     replicaCount: 3
     persistence:
-      size: 100Gi
+      size: 50Gi
     kraft:
       enabled: true
     zookeeper:
