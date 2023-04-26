@@ -28,4 +28,6 @@ scheduler:
   group-id: worker-node
   instance-id: ${scheduler.group-id}-${random.value}
   max-partitions: 6
+  task-fetch-interval: 5s
+  task-fetch-limit: 500
   queue-topic: task

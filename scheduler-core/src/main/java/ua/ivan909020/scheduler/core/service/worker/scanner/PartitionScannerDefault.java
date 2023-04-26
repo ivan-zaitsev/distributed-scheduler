@@ -3,7 +3,6 @@ package ua.ivan909020.scheduler.core.service.worker.scanner;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static ua.ivan909020.scheduler.core.model.entity.TaskStatus.SCHEDULED;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -12,6 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.model.domain.queue.QueueMessage;
 import ua.ivan909020.scheduler.core.model.entity.Task;
 import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
@@ -21,11 +21,9 @@ import ua.ivan909020.scheduler.core.service.converter.JsonConverter;
 
 public class PartitionScannerDefault implements PartitionScanner {
 
-    private static final Duration SCAN_INTERVAL = Duration.ofSeconds(5);
-
-    private static final int TASK_FETCH_LIMIT = 500;
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private final SchedulerProperties schedulerProperties;
 
     private final TaskRepository taskRepository;
 
@@ -38,11 +36,13 @@ public class PartitionScannerDefault implements PartitionScanner {
     private final List<Integer> partitions;
 
     public PartitionScannerDefault(
+            SchedulerProperties schedulerProperties,
             TaskRepository taskRepository,
             QueueProducer queueProducer,
             JsonConverter jsonConverter,
             List<Integer> partitions) {
 
+        this.schedulerProperties = schedulerProperties;
         this.taskRepository = taskRepository;
         this.queueProducer = queueProducer;
         this.jsonConverter = jsonConverter;
@@ -64,7 +64,7 @@ public class PartitionScannerDefault implements PartitionScanner {
             } catch(Exception e) {
                 logger.warn("Failed to scan partitions", e);
             }
-        }, 0, SCAN_INTERVAL.toSeconds(), SECONDS);
+        }, 0, schedulerProperties.getTaskFetchInterval().toSeconds(), SECONDS);
     }
 
     @Override
@@ -75,8 +75,8 @@ public class PartitionScannerDefault implements PartitionScanner {
     }
 
     private void scan(List<Integer> partitions) {
-        List<Task> tasks =
-                taskRepository.findAllOverdue(partitions, List.of(SCHEDULED), Instant.now(), TASK_FETCH_LIMIT);
+        List<Task> tasks = taskRepository.findAllOverdue(
+                partitions, List.of(SCHEDULED), Instant.now(), schedulerProperties.getTaskFetchLimit());
 
         logger.info("Scanning, partitions: {}, found tasks: {}", partitions, tasks.size());
 
