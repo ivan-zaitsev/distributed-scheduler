@@ -45,11 +45,11 @@ kubectl get secret elasticsearch-es-elastic-user -n scheduler -o jsonpath='{.dat
 ### Install queue scripts
 Kafka:
 ```
-scheduler-provider-queue/kafka/src/main/resources/schema.txt
+schema/schema-kafka.txt
 ```
 
 ### Install database scripts
 MongoDB
 ```
-scheduler-provider-database/mongodb/src/main/resources/schema.txt
+schema/schema-mongo.txt
 ```

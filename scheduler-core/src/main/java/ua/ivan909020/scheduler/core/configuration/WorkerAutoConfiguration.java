@@ -43,11 +43,12 @@ public class WorkerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public PartitionScannerFactory partitionScannerFactory(
+            SchedulerProperties schedulerProperties,
             TaskRepository taskRepository,
             QueueProducer queueProducer,
             JsonConverter jsonConverter) {
 
-        return new PartitionScannerFactoryDefault(taskRepository, queueProducer, jsonConverter);
+        return new PartitionScannerFactoryDefault(schedulerProperties, taskRepository, queueProducer, jsonConverter);
     }
 
     @Bean

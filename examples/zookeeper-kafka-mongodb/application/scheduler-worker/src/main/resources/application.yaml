@@ -18,6 +18,11 @@ spring:
     bootstrap-servers: kafka-headless.scheduler.svc.cluster.local:9092
     consumer:
       group-id: ${scheduler.group-id}
+    producer:
+      batch-size: 100KB
+      compression-type: lz4
+      properties:
+       linger.ms: 500
 
   data:
     mongodb:
