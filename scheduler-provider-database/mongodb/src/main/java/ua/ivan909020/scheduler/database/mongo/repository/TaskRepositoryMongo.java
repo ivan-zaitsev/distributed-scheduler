@@ -1,9 +1,10 @@
 package ua.ivan909020.scheduler.database.mongo.repository;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,46 +15,21 @@ import com.mongodb.client.result.UpdateResult;
 import ua.ivan909020.scheduler.core.model.entity.Task;
 import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
 import ua.ivan909020.scheduler.core.repository.TaskRepository;
-import ua.ivan909020.scheduler.database.mongo.model.entity.TaskLock;
 
 public class TaskRepositoryMongo implements TaskRepository {
 
     protected MongoTemplate mongoTemplate;
 
-    protected TaskLockRepository taskLockRepository;
-
-    public TaskRepositoryMongo(MongoTemplate mongoTemplate, TaskLockRepository taskLockRepository) {
+    public TaskRepositoryMongo(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
-        this.taskLockRepository = taskLockRepository;
-    }
-
-    @Override
-    public Task find(Integer partition, String id) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("partition").in(partition));
-        query.addCriteria(Criteria.where("_id").in(id));
-
-        return mongoTemplate.findOne(query, Task.class);
     }
 
     @Override
     public void create(Task task) {
-        Runnable command = () -> {
-            if (find(task.getPartition(), task.getId()) != null) {
-                throw new IllegalStateException("Task with id " + task.getId() + " already exists");
-            }
-
+        try {
             mongoTemplate.insert(task);
-        };
-
-        TaskLock taskLock = new TaskLock()
-                .setPartition(task.getPartition())
-                .setTaskId(task.getId())
-                .setLockAtMost(Instant.now().plus(Duration.ofSeconds(10)));
-
-        boolean result = taskLockRepository.executeWithLock(command, taskLock);
-        if (!result) {
-            throw new IllegalStateException("Task with id " + task.getId() + " is locked");
+        } catch (Exception e) {
+            throw new IllegalStateException("Task with id " + task.getId() + " was not inserted", e);
         }
     }
 
@@ -85,6 +61,7 @@ public class TaskRepositoryMongo implements TaskRepository {
         query.addCriteria(Criteria.where("partition").in(partitions));
         query.addCriteria(Criteria.where("status").in(statuses));
         query.addCriteria(Criteria.where("executeAt").lte(timestamp));
+        query.with(Sort.by(Order.asc("executeAt")));
         query.limit(limit);
 
         return mongoTemplate.find(query, Task.class);

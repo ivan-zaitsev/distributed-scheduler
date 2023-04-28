@@ -8,8 +8,6 @@ import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
 
 public interface TaskRepository {
 
-    Task find(Integer partition, String id);
-
     void create(Task task);
 
     void updateStatus(Task task);

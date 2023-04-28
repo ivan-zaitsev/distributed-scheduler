@@ -19,10 +19,9 @@ spring:
     consumer:
       group-id: ${scheduler.group-id}
     producer:
-      batch-size: 100KB
-      compression-type: lz4
+      batch-size: 1MB
       properties:
-       linger.ms: 500
+       linger.ms: 10
 
   data:
     mongodb:
@@ -33,6 +32,6 @@ scheduler:
   group-id: worker-node
   instance-id: ${scheduler.group-id}-${random.value}
   max-partitions: 6
-  task-fetch-interval: 5s
-  task-fetch-limit: 500
+  task-fetch-interval: 2s
+  task-fetch-limit: 1000
   queue-topic: task

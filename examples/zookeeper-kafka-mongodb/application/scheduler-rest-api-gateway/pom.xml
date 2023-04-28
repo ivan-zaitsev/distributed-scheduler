@@ -13,7 +13,7 @@
     </parent>
 
     <groupId>ua.ivan909020.scheduler</groupId>
-    <artifactId>distributed-scheduler-rest-api-gateway</artifactId>
+    <artifactId>distributed-scheduler-rest-api-gateway-zookeeper-kafka-mongodb</artifactId>
     <version>1.0.0</version>
 
     <properties>

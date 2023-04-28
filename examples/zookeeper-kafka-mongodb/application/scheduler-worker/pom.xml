@@ -13,7 +13,7 @@
     </parent>
 
     <groupId>ua.ivan909020.scheduler</groupId>
-    <artifactId>distributed-scheduler-worker</artifactId>
+    <artifactId>distributed-scheduler-worker-zookeeper-kafka-mongodb</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -35,11 +35,6 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>ua.ivan909020.scheduler</groupId>
-            <artifactId>distributed-scheduler-rest-api</artifactId>
-            <version>${distributed.scheduler.version}</version>
-        </dependency>
         <dependency>
             <groupId>ua.ivan909020.scheduler</groupId>
             <artifactId>distributed-scheduler-discovery-provider-zookeeper</artifactId>

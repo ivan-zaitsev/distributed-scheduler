@@ -14,8 +14,8 @@ import ua.ivan909020.scheduler.core.repository.TaskRepositoryExtended;
 
 public class TaskRepositoryExtendedMongo extends TaskRepositoryMongo implements TaskRepositoryExtended {
 
-    public TaskRepositoryExtendedMongo(MongoTemplate mongoTemplate, TaskLockRepository taskLockRepository) {
-        super(mongoTemplate, taskLockRepository);
+    public TaskRepositoryExtendedMongo(MongoTemplate mongoTemplate) {
+        super(mongoTemplate);
     }
 
     @Override

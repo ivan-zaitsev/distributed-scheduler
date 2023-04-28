@@ -31,7 +31,7 @@ public class Application {
     public void handleInstanceRegisteredEvent() {
         ExecutorService executorService = Executors.newFixedThreadPool(8);
 
-        Instant timestamp = Instant.now().plus(Duration.ofMinutes(1));
+        Instant timestamp = Instant.now().plus(Duration.ofMinutes(5));
         AtomicInteger counter = new AtomicInteger(0);
 
         for (int i = 0; i < 100000; i++) {

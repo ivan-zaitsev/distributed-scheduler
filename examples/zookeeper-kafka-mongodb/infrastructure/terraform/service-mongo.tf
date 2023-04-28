@@ -13,17 +13,17 @@ resource "helm_release" "mongo_deployment" {
       rootUser: root
       rootPassword: password
     configsvr:
-      replicaCount: 3
+      replicaCount: 2
       persistence:
         size: 50Gi
     mongos:
-      replicaCount: 3
+      replicaCount: 2
     shards: 3
     shardsvr:
       persistence:
         size: 50Gi
       dataNode:
-        replicaCount: 3
+        replicaCount: 2
     EOF
   ]
 

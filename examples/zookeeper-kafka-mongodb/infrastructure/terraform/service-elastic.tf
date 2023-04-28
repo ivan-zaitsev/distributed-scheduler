@@ -82,7 +82,7 @@ resource "kubernetes_manifest" "apm_server_deployment" {
         tls:
           selfSignedCertificate:
             disabled: true
-      count: 3
+      count: 1
       elasticsearchRef:
         name: elasticsearch
       kibanaRef:
