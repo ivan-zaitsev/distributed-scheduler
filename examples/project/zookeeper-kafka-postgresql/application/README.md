@@ -4,7 +4,7 @@
 
 ### Package applications
 ```
-mvn -f ../ clean install
+mvn -f ../../ clean install
 
 mvn -f scheduler-rest-api-gateway/ clean package
 mvn -f scheduler-worker/ clean package

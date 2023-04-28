@@ -30,7 +30,12 @@ scheduler-ui: Angular 15
 Examples (optional):
 ```
 infrastructure: Terraform, Kubernetes
+
 zookeeper-kafka-mongodb:
   scheduler-rest-api-gateway: Spring Cloud Gateway, Spring Cloud Zookeeper, Elastic APM
   scheduler-worker: Zookeeper Discovery Provider, Kafka Queue Provider, MongoDB Database Provider, Elastic APM
+
+zookeeper-kafka-postgresql:
+  scheduler-rest-api-gateway: Spring Cloud Gateway, Spring Cloud Zookeeper, Elastic APM
+  scheduler-worker: Zookeeper Discovery Provider, Kafka Queue Provider, PostgreSQL Database Provider, Elastic APM
 ```
