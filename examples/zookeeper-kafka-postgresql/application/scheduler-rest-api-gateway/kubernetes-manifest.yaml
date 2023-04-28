@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: distributed-scheduler-rest-api-gateway
+  name: distributed-scheduler-rest-api-gateway
+spec:
+  type: LoadBalancer
+  selector:
+    service: distributed-scheduler-rest-api-gateway
+  ports:
+    - name: client
+      port: 8000
+      targetPort: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: distributed-scheduler-rest-api-gateway
+  name: distributed-scheduler-rest-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: distributed-scheduler-rest-api-gateway
+  template:
+    metadata:
+      labels:
+        service: distributed-scheduler-rest-api-gateway
+    spec:
+      containers:
+        - image: 192.168.1.11:5000/distributed-scheduler-rest-api-gateway:1.0.0
+          imagePullPolicy: Always
+          name: distributed-scheduler-rest-api-gateway
+          ports:
+            - containerPort: 8000

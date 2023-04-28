@@ -1,0 +1,38 @@
+# server configuration
+server:
+  port: 8080
+
+# spring configuration
+spring:
+  application:
+    name: ${scheduler.group-id}
+
+  cloud:
+    zookeeper:
+      connect-string: zookeeper-headless.scheduler.svc.cluster.local:2181
+      discovery:
+        instance-id: ${scheduler.instance-id}
+        prefer-ip-address: true
+
+  kafka:
+    bootstrap-servers: kafka-headless.scheduler.svc.cluster.local:9092
+    consumer:
+      group-id: ${scheduler.group-id}
+    producer:
+      batch-size: 1MB
+      properties:
+       linger.ms: 10
+
+  datasource:
+    url: jdbc:postgresql://postgres-postgresql-hl.scheduler.svc.cluster.local:5432/scheduler
+    username: postgres
+    password: password
+
+# scheduler configuration
+scheduler:
+  group-id: worker-node
+  instance-id: ${scheduler.group-id}-${random.value}
+  max-partitions: 6
+  task-fetch-interval: 2s
+  task-fetch-limit: 1000
+  queue-topic: task

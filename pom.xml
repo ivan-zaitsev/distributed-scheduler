@@ -15,6 +15,7 @@
         <module>scheduler-provider-discovery/zookeeper</module>
         <module>scheduler-provider-queue/kafka</module>
         <module>scheduler-provider-database/mongodb</module>
+        <module>scheduler-provider-database/postgresql</module>
     </modules>
 
     <properties>
