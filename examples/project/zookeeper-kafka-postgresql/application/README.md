@@ -1,4 +1,4 @@
-# zookeeper-kafka-mongodb
+# zookeeper-kafka-postgresql
 
 ## Install applications
 

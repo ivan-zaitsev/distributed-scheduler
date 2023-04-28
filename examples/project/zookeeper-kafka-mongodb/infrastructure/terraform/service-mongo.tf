@@ -26,8 +26,6 @@ resource "helm_release" "mongo_deployment" {
         replicaCount: 2
     EOF
   ]
-
-  depends_on = [kubernetes_manifest.namespace_scheduler]
 }
 
 resource "kubernetes_manifest" "mongo_service" {
@@ -48,6 +46,4 @@ resource "kubernetes_manifest" "mongo_service" {
           targetPort: 27017
     EOF
   )
-
-  depends_on = [kubernetes_manifest.namespace_scheduler]
 }

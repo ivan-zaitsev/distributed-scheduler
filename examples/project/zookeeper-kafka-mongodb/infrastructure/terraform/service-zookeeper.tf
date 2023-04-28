@@ -14,6 +14,4 @@ resource "helm_release" "zookeeper_deployment" {
       size: 50Gi
     EOF
   ]
-
-  depends_on = [kubernetes_manifest.namespace_scheduler]
 }

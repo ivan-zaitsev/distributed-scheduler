@@ -1,4 +1,4 @@
-# zookeeper-kafka-mongodb
+# infrastructure
 
 ## Install kubernetes
 
@@ -22,6 +22,7 @@ To access kubernetes resources externally outside cluster one option is to tunne
 kubectl apply -f kubernetes/wireguard.yaml
 kubectl exec -it statefulset.apps/wireguard -- cat /config/peer1/peer1.conf
 ```
+
 ### Install docker registry
 ```
 kubectl apply -f kubernetes/docker-registry.yaml
@@ -38,18 +39,4 @@ terraform -chdir=terraform apply
 ### Retrieve elastic password
 ```
 kubectl get secret elasticsearch-es-elastic-user -n scheduler -o jsonpath='{.data.elastic}' | base64 -d
-```
-
-## Install scripts
-
-### Install queue scripts
-Kafka:
-```
-schema/schema-kafka.txt
-```
-
-### Install database scripts
-MongoDB
-```
-schema/schema-mongo.txt
 ```

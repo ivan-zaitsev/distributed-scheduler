@@ -15,6 +15,4 @@ resource "helm_release" "postgres_deployment" {
       size: 50Gi
     EOF
   ]
-
-  depends_on = [kubernetes_manifest.namespace_scheduler]
 }

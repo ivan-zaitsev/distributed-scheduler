@@ -18,6 +18,4 @@ resource "helm_release" "kafka_deployment" {
       enabled: false
     EOF
   ]
-
-  depends_on = [kubernetes_manifest.namespace_scheduler]
 }
