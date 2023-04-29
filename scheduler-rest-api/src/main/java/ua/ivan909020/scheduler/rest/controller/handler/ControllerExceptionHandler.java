@@ -16,7 +16,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityValidationException.class)
     public ResponseEntity<ErrorResponseDto> handleEntityValidationException(EntityValidationException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponseDto(ErrorCode.NOT_VALID_BODY, ex.getMessage()));
+                .body(new ErrorResponseDto(ErrorCode.BODY_IS_NOT_VALID, ex.getMessage()));
     }
 
 }
