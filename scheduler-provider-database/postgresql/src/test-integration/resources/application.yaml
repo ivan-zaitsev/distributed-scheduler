@@ -1,0 +1,14 @@
+# spring configuration
+spring:
+  liquibase:
+    change-log: classpath:migration/changelog.xml
+
+# logging configuration
+logging:
+  level:
+    root: DEBUG
+
+# scheduler configuration
+scheduler:
+  group-id: worker-node
+  queue-topic: task

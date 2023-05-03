@@ -28,6 +28,9 @@ spring:
     username: postgres
     password: password
 
+  liquibase:
+    change-log: classpath:migration/changelog.xml
+
 # scheduler configuration
 scheduler:
   group-id: worker-node

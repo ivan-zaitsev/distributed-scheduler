@@ -16,12 +16,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.cloud.client.DefaultServiceInstance;
 import org.springframework.cloud.client.ServiceInstance;
 
 import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
-import ua.ivan909020.scheduler.core.testdata.ServiceInstanceMock;
 
 @ExtendWith(MockitoExtension.class)
 class PartitionPolicyDiscoveryTest {
@@ -154,7 +154,7 @@ class PartitionPolicyDiscoveryTest {
 
     private static Instance buildInstance(String instanceId) {
         Instance instance = new Instance();
-        instance.setServiceInstance(new ServiceInstanceMock(instanceId));
+        instance.setServiceInstance(new DefaultServiceInstance(instanceId, null, null, 0, false));
         instance.setRegisteredAt(Instant.now());
         return instance;
     }

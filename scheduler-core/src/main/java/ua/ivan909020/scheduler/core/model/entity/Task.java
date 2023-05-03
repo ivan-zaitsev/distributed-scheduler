@@ -1,6 +1,7 @@
 package ua.ivan909020.scheduler.core.model.entity;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class Task {
 
@@ -75,8 +76,32 @@ public class Task {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(data, executeAt, id, name, partition, status, version);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Task other = (Task) obj;
+        return Objects.equals(data, other.data) && 
+                Objects.equals(executeAt, other.executeAt) && 
+                Objects.equals(id, other.id) && 
+                Objects.equals(name, other.name) && 
+                Objects.equals(partition, other.partition) && 
+                status == other.status && 
+                Objects.equals(version, other.version);
+    }
+
+    @Override
     public String toString() {
-        return "Task [partition=" + partition +
+        return "Task [" + 
+                "partition=" + partition +
                 ", id=" + id +
                 ", version=" + version +
                 ", status=" + status +

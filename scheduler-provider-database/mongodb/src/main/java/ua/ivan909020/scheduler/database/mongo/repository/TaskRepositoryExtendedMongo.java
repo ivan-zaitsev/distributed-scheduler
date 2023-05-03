@@ -23,10 +23,10 @@ public class TaskRepositoryExtendedMongo extends TaskRepositoryMongo implements 
         Query query = new Query();
         query.addCriteria(Criteria.where("partition").in(partitions));
         query.addCriteria(Criteria.where("status").in(statuses));
-        if (page.getCursor() != null) {
-            query.addCriteria(Criteria.where("_id").gt(page.getCursor()));
+        if (page.cursor() != null) {
+            query.addCriteria(Criteria.where("_id").gt(page.cursor()));
         }
-        query.limit(page.getSize());
+        query.limit(page.size());
 
         List<Task> result = mongoTemplate.find(query, Task.class);
 

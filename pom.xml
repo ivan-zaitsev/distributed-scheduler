@@ -25,12 +25,19 @@
 
         <spring.boot.version>3.0.5</spring.boot.version>
         <spring.cloud.version>2022.0.1</spring.cloud.version>
+        <testcontainers.version>1.18.0</testcontainers.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

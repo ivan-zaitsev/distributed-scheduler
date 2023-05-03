@@ -60,4 +60,14 @@ public class Instance {
         this.partitions = partitions;
     }
 
+    @Override
+    public String toString() {
+        return "Instance [" + 
+                "serviceInstance=" + serviceInstance + 
+                ", registeredAt=" + registeredAt + 
+                ", updatedAt=" + updatedAt + 
+                ", status=" + status + 
+                ", partitions=" + partitions + "]";
+    }
+
 }

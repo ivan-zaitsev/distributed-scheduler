@@ -2,6 +2,7 @@ package ua.ivan909020.scheduler.rest.model.dto;
 
 public enum ErrorCode {
 
-    BODY_IS_NOT_VALID
+    REQUEST_BODY_NOT_VALID,
+    REQUEST_PARAMETERS_NOT_VALID
 
 }

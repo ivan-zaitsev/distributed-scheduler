@@ -27,8 +27,8 @@ public class TaskServiceDefault implements TaskService {
     @Override
     public PagedList<TaskDto> findAll(List<TaskStatus> statuses, KeysetPage page) {
         PagedList<Task> tasks = taskRepository.findAll(partitionService.getAll(), statuses, page);
-        List<TaskDto> result = tasks.getContent().stream().map(this::convert).toList();
-        return new PagedList<>(result, tasks.getNextCursor());
+        List<TaskDto> result = tasks.content().stream().map(this::convert).toList();
+        return new PagedList<>(result, tasks.nextCursor());
     }
 
     private TaskDto convert(Task task) {

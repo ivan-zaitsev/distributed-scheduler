@@ -1,1 +1,1 @@
-ua.ivan909020.scheduler.database.mongo.configuration.MongoAutoConfiguration
+ua.ivan909020.scheduler.database.mongo.configuration.MongoDatabaseAutoConfiguration

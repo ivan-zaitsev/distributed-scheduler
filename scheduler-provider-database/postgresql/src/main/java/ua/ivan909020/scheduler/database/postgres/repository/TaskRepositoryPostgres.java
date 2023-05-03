@@ -42,9 +42,13 @@ public class TaskRepositoryPostgres implements TaskRepository {
         parameters.addValue("name", task.getName());
         parameters.addValue("data", task.getData());
 
-        int insertedCount = jdbcTemplate.update(sql, parameters);
-        if (insertedCount != 1) {
-            throw new IllegalStateException("Task with id " + task.getId() + " was not inserted");
+        try {
+            int insertedCount = jdbcTemplate.update(sql, parameters);
+            if (insertedCount != 1) {
+                throw new IllegalStateException("Task with id " + task.getId() + " was not inserted");
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("Task with id " + task.getId() + " was not inserted", e);
         }
     }
 

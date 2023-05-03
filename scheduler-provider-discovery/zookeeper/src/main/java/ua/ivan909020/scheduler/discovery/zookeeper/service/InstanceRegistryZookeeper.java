@@ -16,6 +16,7 @@ import org.springframework.cloud.zookeeper.discovery.ZookeeperServiceInstance;
 import org.springframework.cloud.zookeeper.serviceregistry.ServiceInstanceRegistration;
 import org.springframework.util.ReflectionUtils;
 
+import ua.ivan909020.scheduler.core.configuration.properties.SchedulerProperties;
 import ua.ivan909020.scheduler.core.model.domain.instance.Instance;
 import ua.ivan909020.scheduler.core.model.domain.instance.InstanceStatus;
 import ua.ivan909020.scheduler.core.service.converter.PartitionConverter;
@@ -23,7 +24,7 @@ import ua.ivan909020.scheduler.core.service.discovery.InstanceRegistry;
 
 public class InstanceRegistryZookeeper implements InstanceRegistry {
 
-    private final String groupId;
+    private final SchedulerProperties schedulerProperties;
 
     private final ServiceInstanceRegistration instanceRegistration;
 
@@ -32,12 +33,12 @@ public class InstanceRegistryZookeeper implements InstanceRegistry {
     private final ServiceDiscovery<ZookeeperInstance> serviceDiscovery;
 
     public InstanceRegistryZookeeper(
-            String groupId,
+            SchedulerProperties schedulerProperties,
             ServiceInstanceRegistration instanceRegistration,
             ZookeeperDiscoveryClient discoveryClient,
             ServiceDiscovery<ZookeeperInstance> serviceDiscovery) {
 
-        this.groupId = groupId;
+        this.schedulerProperties = schedulerProperties;
         this.instanceRegistration = instanceRegistration;
         this.discoveryClient = discoveryClient;
         this.serviceDiscovery = serviceDiscovery;
@@ -46,7 +47,8 @@ public class InstanceRegistryZookeeper implements InstanceRegistry {
     @Override
     public Instance getCurrentInstance() {
         setPortIfNeeded();
-        return buildInstance(new ZookeeperServiceInstance(groupId, instanceRegistration.getServiceInstance()));
+        return buildInstance(new ZookeeperServiceInstance(
+                schedulerProperties.getGroupId(), instanceRegistration.getServiceInstance()));
     }
 
     private void setPortIfNeeded() {
@@ -72,7 +74,7 @@ public class InstanceRegistryZookeeper implements InstanceRegistry {
 
     @Override
     public List<Instance> getAllInstances() {
-        return discoveryClient.getInstances(groupId).stream()
+        return discoveryClient.getInstances(schedulerProperties.getGroupId()).stream()
                 .map(ZookeeperServiceInstance.class::cast)
                 .map(this::buildInstance)
                 .toList();

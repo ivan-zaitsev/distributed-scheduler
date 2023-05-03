@@ -1,6 +1,7 @@
 package ua.ivan909020.scheduler.rest.model.dto.task;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import ua.ivan909020.scheduler.core.model.entity.TaskStatus;
 
@@ -46,4 +47,34 @@ public class TaskDto {
         this.name = name;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(executeAt, id, name, status);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        TaskDto other = (TaskDto) obj;
+        return Objects.equals(executeAt, other.executeAt) && 
+                Objects.equals(id, other.id) && 
+                Objects.equals(name, other.name) && 
+                status == other.status;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDto [" + 
+                "id=" + id + 
+                ", status=" + status + 
+                ", executeAt=" + executeAt + 
+                ", name=" + name + "]";
+    }
+
+    
 }

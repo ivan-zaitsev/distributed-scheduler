@@ -1,1 +1,1 @@
-ua.ivan909020.scheduler.discovery.zookeeper.configuration.InstanceAutoConfiguration
+ua.ivan909020.scheduler.discovery.zookeeper.configuration.ZookeeperDiscoveryAutoConfiguration

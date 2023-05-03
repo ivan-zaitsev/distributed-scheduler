@@ -5,6 +5,9 @@ public class ErrorResponseDto {
     private ErrorCode errorCode;
     private String message;
 
+    public ErrorResponseDto() {
+    }
+
     public ErrorResponseDto(ErrorCode errorCode, String message) {
         this.errorCode = errorCode;
         this.message = message;
