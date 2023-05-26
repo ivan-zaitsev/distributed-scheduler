@@ -2,6 +2,7 @@ package ua.ivan909020.scheduler.database.mongo.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -27,6 +28,7 @@ public class TaskRepositoryExtendedMongo extends TaskRepositoryMongo implements 
             query.addCriteria(Criteria.where("_id").gt(page.cursor()));
         }
         query.limit(page.size());
+        query.with(Sort.by(Sort.Order.asc("executeAt")));
 
         List<Task> result = mongoTemplate.find(query, Task.class);
 

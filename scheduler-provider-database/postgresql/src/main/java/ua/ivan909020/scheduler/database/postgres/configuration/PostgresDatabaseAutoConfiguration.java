@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import ua.ivan909020.scheduler.core.repository.TaskRepository;
-import ua.ivan909020.scheduler.database.postgres.repository.TaskRepositoryPostgres;
+import ua.ivan909020.scheduler.database.postgres.repository.TaskRepositoryExtendedPostgres;
 
 @Configuration
 public class PostgresDatabaseAutoConfiguration {
@@ -14,7 +14,7 @@ public class PostgresDatabaseAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public TaskRepository taskRepository(NamedParameterJdbcTemplate jdbcTemplate) {
-        return new TaskRepositoryPostgres(jdbcTemplate);
+        return new TaskRepositoryExtendedPostgres(jdbcTemplate);
     }
 
 }
